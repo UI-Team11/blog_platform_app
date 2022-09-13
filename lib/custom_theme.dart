@@ -8,7 +8,7 @@ const int primaryColorDark = 0xFF00153b;
 const int backgroundColor = 0xFFB7D6E6;
 
 const MaterialColor blueNavy = MaterialColor(
-  primaryColor,
+  primaryColorDark,
   <int, Color>{
     50: Color(0xFFE2EFF4),
     100: Color(0xFFB7D6E6), // Background Color
@@ -30,7 +30,7 @@ const int secondaryColorLight = 0xFF476072;
 const int secondaryColorDark = 0xFF273844;
 
 const MaterialColor blueGrey = MaterialColor(
-  secondaryColor,
+  secondaryColorDark,
   <int, Color>{
     50: Color(0xFFE8F1FA),
     100: Color(0xFFCCDBE6),
