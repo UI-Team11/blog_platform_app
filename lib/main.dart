@@ -1,8 +1,12 @@
 import 'package:blog_platform_app/main_menu_view.dart';
 import 'package:flutter/material.dart';
 import 'custom_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:blog_platform_app/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
