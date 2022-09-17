@@ -1,6 +1,7 @@
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_util.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
+import 'package:blog_platform_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'custom_theme.dart';
@@ -19,9 +20,6 @@ class _MainMenuViewState extends State<MainMenuView> {
       backgroundColor: const Color(backgroundColor),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme:
-            const IconThemeData(color: Color(primaryColorDark), size: 40),
       ),
       drawer: Drawer(
         backgroundColor: const Color(primaryColorDark),
@@ -56,7 +54,7 @@ class _MainMenuViewState extends State<MainMenuView> {
           ],
         ),
       ),
-      body: LoginScreen(),
+      body: HomeScreen(),
     );
   }
 }
