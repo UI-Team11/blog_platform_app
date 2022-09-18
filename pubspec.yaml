@@ -46,6 +46,10 @@ dependencies:
   page_transition: ^2.0.9
   font_awesome_flutter: ^10.2.1
   auto_size_text: ^3.0.0
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+  firebase_auth: ^3.4.2
 
 
 dev_dependencies:
