@@ -35,9 +35,30 @@ class _MainMenuViewState extends State<MainMenuView> {
                   width: MediaQuery.of(context).size.height / 6,
                   decoration: ShapeDecoration(
                     color: blueNavy[300],
-                    shape: CircleBorder(),
+                    shape: const CircleBorder(),
                   ),
-                  child: Center(child: Text("Sign In")),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            backgroundColor: Color(backgroundColor),
+                            content: LoginScreen(),
+                          );
+                        },
+                      );
+                    },
+                    child: const Center(
+                      child: Text("Sign In"),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: blueNavy[300],
+                      //fixedSize: const Size(200, 200),
+                      shape: const CircleBorder(),
+                    ),
+                  ),
                 ),
               ),
             ),

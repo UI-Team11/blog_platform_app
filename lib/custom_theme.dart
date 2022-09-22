@@ -39,8 +39,30 @@ const MaterialColor blueGrey = MaterialColor(
     400: Color(0xFF7B96AB),
     500: Color(0xFF64839B),
     600: Color(0xFF577489),
-    700: Color(0xFF476072), // Primary Color Light
-    800: Color(0xFF394D5C), // Primary Color
-    900: Color(0xFF273844), // Primary Color Dark
+    700: Color(0xFF476072), // Secondary Color Light
+    800: Color(0xFF394D5C), // Secondary Color
+    900: Color(0xFF273844), // Secondary Color Dark
+  },
+);
+
+// Alternative Color Theme
+
+const int alternativeColor = 0xFF4B92BB;
+const int alternativeColorLight = 0xFF6eBAD8;
+const int alternativeColorDark = 0xFF305171;
+
+const MaterialColor blueLight = MaterialColor(
+  alternativeColor,
+  <int, Color>{
+    50: Color(0xFFE3F3F8),
+    100: Color(0xFFB8E1EF),
+    200: Color(0xFF8ECEE4),
+    300: Color(0xFF6eBAD8), // Alternative Color Light
+    400: Color(0xFF5DADD0),
+    500: Color(0xFF529FC9),
+    600: Color(0xFF4B92BB), // Primary Color
+    700: Color(0xFF4280A8),
+    800: Color(0xFF3D6F94),
+    900: Color(0xFF305171), // Primary Color Dark
   },
 );

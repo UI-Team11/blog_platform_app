@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-const double maxThumbnailSize = 200;
+import '../custom_theme.dart';
+
+const double maxThumbnailSize = 250;
 
 class BlogThumbnail extends StatelessWidget {
   const BlogThumbnail({Key? key}) : super(key: key);
@@ -8,17 +10,26 @@ class BlogThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height: 150,
+      width: maxThumbnailSize,
+      height: maxThumbnailSize,
       child: Column(
         children: [
-          Container(
-              width: 100,
-              height: 100,
-              color: Colors.red
+          Expanded(
+            child: Container(
+              // width: 100,
+              // height: 100,
+              color: const Color(secondaryColorDark),
+            ),
           ),
-          Text("Title"),
-          Text("01/02/2022"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Title"),
+              Text(" - "),
+              Text("01/02/2022"),
+            ],
+          ),
+
         ],
       ),
     );

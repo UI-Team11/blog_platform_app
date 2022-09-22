@@ -18,20 +18,30 @@ class AuthCubit extends Cubit<AuthState> {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
+      await credential.user!.updateDisplayName(username);
+
+      emit(const AuthSignedInState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-        emit(const AuthErrorState('The password provided is too weak.'));
+        emit(const AuthErrorState(
+          "The password provided is too weak.",
+        ));
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-        emit(
-            const AuthErrorState('The account already exists for that email.'));
+        emit(const AuthErrorState(
+          "The account already exists for that email.",
+        ));
+      } else if (e.code == 'invalid-email') {
+        emit(const AuthErrorState(
+          "The email address is not valid",
+        ));
+      } else {
+        emit(const AuthErrorState(
+          "An error has occurred while signing up",
+        ));
       }
     } catch (e) {
       emit(const AuthErrorState());
     }
-
-    emit(const AuthSignedInState());
   }
 
   Future<void> signInWithEmail({
@@ -43,16 +53,50 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+      emit(const AuthSignedInState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        emit(const AuthErrorState(
+          "No user found for that email.",
+        ));
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        emit(const AuthErrorState(
+          "Wrong password provided for that email.",
+        ));
+      } else if (e.code == 'user-disabled') {
+        emit(const AuthErrorState(
+          "Account was temporarily disabled due to many failed login attempts",
+        ));
+      } else if (e.code == 'invalid-email') {
+        emit(const AuthErrorState(
+          "The email address is not valid",
+        ));
+      } else {
+        emit(const AuthErrorState(
+          "An error has occurred while signing in",
+        ));
       }
+    } catch (e) {
+      emit(const AuthErrorState(
+        "An error has occurred while signing in",
+      ));
     }
+  }
+
+  Future<void> signOut() async {
+    emit(const AuthLoadingState());
+
+    await FirebaseAuth.instance.signOut();
+
+    emit(const AuthInitialState());
   }
 
   Future<void> signOutListener() async {
     emit(const AuthInitialState());
+  }
+
+  Future<void> signInListener() async {
+    emit(const AuthSignedInState());
   }
 }

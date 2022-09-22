@@ -26,7 +26,11 @@ class MyApp extends StatelessWidget {
           AuthCubit authCubit = AuthCubit();
 
           FirebaseAuth.instance.authStateChanges().listen((User? user) {
-            if (user == null) authCubit.signOutListener();
+            if (user == null) {
+              authCubit.signOutListener();
+            } else if (user.displayName != null) {
+              authCubit.signInListener();
+            }
           });
 
           return authCubit;
