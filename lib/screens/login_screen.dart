@@ -57,15 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Welcome to Blog Spot!          \n\n\n',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                  ),
+                  Text("Text"),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
