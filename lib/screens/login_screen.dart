@@ -13,7 +13,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return PopupMenuItem(
+      child: Container(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Align(
@@ -79,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
       );
   }
 }
