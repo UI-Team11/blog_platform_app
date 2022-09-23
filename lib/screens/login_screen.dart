@@ -52,123 +52,117 @@ class _LoginScreenState extends State<LoginScreen> {
           return SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
-              child: Align(
-                alignment: AlignmentDirectional(0, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(0, 0.45),
-                      child: Text(
-                        'Welcome to Blog Spot!          \n\n\n',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        onChanged: (value) => _email = value,
-                        textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 10,
-                          ),
+              child: Column(
+                //mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Welcome to Blog Spot!          \n\n\n',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      onChanged: (value) => _email = value,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 10,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        onChanged: (value) => _username = value,
-                        textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 10,
-                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      onChanged: (value) => _username = value,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 10,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        onChanged: (value) => _password = value,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) {
-                          context.read<AuthCubit>().signInWithEmail(
-                                email: _email,
-                                password: _password,
-                              );
-                        },
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 10,
-                          ),
-                        ),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      onChanged: (value) => _password = value,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) {
                         context.read<AuthCubit>().signInWithEmail(
                               email: _email,
                               password: _password,
                             );
                       },
-                      text: 'Log In',
-                      options: FFButtonOptions(
-                        width: 130,
-                        height: 40,
-                        color: Color(0xFF476072),
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 10,
                         ),
-                        //borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                        context.read<AuthCubit>().signUpWithEmail(
-                              email: _email,
-                              password: _password,
-                              username: _username,
-                            );
-                      },
-                      text: 'Sign Up',
-                      options: FFButtonOptions(
-                        width: 130,
-                        height: 40,
-                        color: Color(0xFF476072),
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        //borderRadius: BorderRadius.circular(8),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () {
+                      print('Button pressed ...');
+                      context.read<AuthCubit>().signInWithEmail(
+                            email: _email,
+                            password: _password,
+                          );
+                    },
+                    text: 'Log In',
+                    options: FFButtonOptions(
+                      width: 100,
+                      height: 40,
+                      color: Color(0xFF476072),
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                              ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
                       ),
+                      //borderRadius: BorderRadius.circular(8),
                     ),
-                  ],
-                ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () {
+                      print('Button pressed ...');
+                      context.read<AuthCubit>().signUpWithEmail(
+                            email: _email,
+                            password: _password,
+                            username: _username,
+                          );
+                    },
+                    text: 'Sign Up',
+                    options: FFButtonOptions(
+                      width: 100,
+                      height: 40,
+                      color: Color(0xFF476072),
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                              ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      //borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ],
               ),
             ),
           );

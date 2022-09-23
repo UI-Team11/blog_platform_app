@@ -2,6 +2,7 @@ import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_util.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:blog_platform_app/screens/home_screen.dart';
+import 'package:blog_platform_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'custom_theme.dart';
@@ -63,15 +64,15 @@ class _MainMenuViewState extends State<MainMenuView> {
               ),
             ),
             const SizedBox(height: 20),
-            Text("HOME", style: TextStyle(color: Colors.white)),
+            DrawerItem(text: "HOME", icon: Icons.home, onTapFunc: (){}),
             const SizedBox(height: 20),
-            Text("CATEGORY", style: TextStyle(color: Colors.white)),
+            DrawerItem(text: "CATEGORY", icon: Icons.category, onTapFunc: (){}),
             const SizedBox(height: 20),
-            Text("CREATE BLOG", style: TextStyle(color: Colors.white)),
+            DrawerItem(text: "CREATE BLOG", icon: Icons.add_box, onTapFunc: (){}),
             const SizedBox(height: 20),
-            Text("YOUR BLOGS", style: TextStyle(color: Colors.white)),
+            DrawerItem(text: "YOUR BLOGS", icon: Icons.newspaper, onTapFunc: (){}),
             const SizedBox(height: 20),
-            Text("SUBSCRIPTIONS", style: TextStyle(color: Colors.white)),
+            DrawerItem(text: "SUBSCRIPTIONS", icon: Icons.person, onTapFunc: (){}),
           ],
         ),
       ),
