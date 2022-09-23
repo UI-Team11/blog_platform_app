@@ -1,7 +1,9 @@
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_util.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
+import 'package:blog_platform_app/screens/categories_screen.dart';
 import 'package:blog_platform_app/screens/home_screen.dart';
+import 'package:blog_platform_app/screens/sign_up_screen.dart';
 import 'package:blog_platform_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
@@ -34,10 +36,6 @@ class _MainMenuViewState extends State<MainMenuView> {
                 child: Container(
                   height: MediaQuery.of(context).size.height / 6,
                   width: MediaQuery.of(context).size.height / 6,
-                  decoration: ShapeDecoration(
-                    color: blueNavy[300],
-                    shape: const CircleBorder(),
-                  ),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -46,7 +44,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                         builder: (context) {
                           return const AlertDialog(
                             backgroundColor: Color(backgroundColor),
-                            content: LoginScreen(),
+                            content: SignUpScreen(),
                           );
                         },
                       );
@@ -76,7 +74,7 @@ class _MainMenuViewState extends State<MainMenuView> {
           ],
         ),
       ),
-      body: HomeScreen(),
+      body: CategoryScreen(),
     );
   }
 }

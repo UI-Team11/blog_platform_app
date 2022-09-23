@@ -13,49 +13,60 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _fromKey = GlobalKey<FormState>();
 
+  String _text = "";
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _fromKey,
-      child: Column(children: <Widget>[
-        const SizedBox(height: 20),
-        Title(
-            color: Colors.white,
-            child: Text("Sign Up Menu", style: TextStyle(color: Colors.white))),
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'Name'),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'Username'),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'Password'),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            print('Button pressed ...');
-          },
-          child: const Text('Sign Up'),
-        ),
-      ]),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
+      width: MediaQuery.of(context).size.height * 0.5,
+      child: Form(
+        key: _fromKey,
+        child: Column(children: <Widget>[
+          const SizedBox(height: 20),
+          Title(
+              color: Colors.white,
+              child: Text("Sign Up Menu", style: TextStyle(color: Colors.white))),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Name'),
+            textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Username'),
+            textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Password'),
+            textInputAction: TextInputAction.done,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              print('Button pressed ...');
+            },
+            child: const Text('Sign Up'),
+          ),
+        ]),
+      ),
     );
   }
 }

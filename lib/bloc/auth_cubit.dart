@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      await credential.user!.updateDisplayName(username);
+      await credential.user?.updateDisplayName(username);
 
       emit(const AuthSignedInState());
     } on FirebaseAuthException catch (e) {

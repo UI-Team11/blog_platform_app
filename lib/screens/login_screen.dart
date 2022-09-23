@@ -17,6 +17,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password = "";
   String _username = "";
 
+  void _submit() {
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -39,6 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         builder: (context, currState) {
+          if (currState is AuthLoadingState){
+            return CircularProgressIndicator();
+          }
           if (currState is AuthSignedInState) {
             return Column(
               children: [

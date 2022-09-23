@@ -9,7 +9,7 @@ class BlogThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: maxThumbnailSize,
       height: maxThumbnailSize,
       child: Column(
