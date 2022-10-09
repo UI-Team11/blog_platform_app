@@ -99,4 +99,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signInListener() async {
     emit(const AuthSignedInState());
   }
+
+  Future<void> resetAuthState() async {
+    emit(const AuthInitialState());
+  }
+
 }

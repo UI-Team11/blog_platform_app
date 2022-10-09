@@ -1,71 +1,198 @@
+import 'package:blog_platform_app/widgets/bottom_loader_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_util.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  final void Function() onSignInPressed;
+
+  const SignUpScreen(this.onSignInPressed, {Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final _fromKey = GlobalKey<FormState>();
+  String _email = "";
+  String _password = "";
+  String _username = "";
+  final _formKey = GlobalKey<FormState>();
 
-  String _text = "";
+  void _submit() {
+    FocusScope.of(context).unfocus();
 
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
+    _formKey.currentState!.save();
+
+    context.read<AuthCubit>().signUpWithEmail(
+      email: _email,
+      password: _password,
+      username: _username,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.45,
       width: MediaQuery.of(context).size.height * 0.5,
-      child: Form(
-        key: _fromKey,
-        child: Column(children: <Widget>[
-          const SizedBox(height: 20),
-          Title(
-              color: Colors.white,
-              child: Text("Sign Up Menu", style: TextStyle(color: Colors.white))),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Name'),
-            textInputAction: TextInputAction.next,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Username'),
-            textInputAction: TextInputAction.next,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Password'),
-            textInputAction: TextInputAction.done,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              print('Button pressed ...');
-            },
-            child: const Text('Sign Up'),
-          ),
-        ]),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, currState) {
+          if (currState is AuthLoadingState) {
+            return LoaderIndicator();
+          }
+          if (currState is AuthSignedInState) {
+            return Column(
+              children: [
+                Text(FirebaseAuth.instance.currentUser!.displayName ??
+                    "No username"),
+                FloatingActionButton(onPressed: () {
+                  context.read<AuthCubit>().signOut();
+                }),
+              ],
+            );
+          }
+          return SafeArea(
+            child: Form(
+              key: _formKey,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Column(
+                  //mainAxisSize: MainAxisSize.max,
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    (currState is AuthErrorState)
+                        ? Container(
+                      alignment: AlignmentDirectional.center,
+                      padding: EdgeInsetsDirectional.all(10),
+                      child: Text(
+                        currState.message ?? "Error",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.red),
+                      ),
+                    )
+                        : const SizedBox(),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        onSaved: (value) => _email = value ?? "",
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value == "") {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 13,
+                            horizontal: 10,
+                          ),
+                          labelText: "Email",
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        onSaved: (value) => _username = value ?? "",
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value == "") {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 13,
+                            horizontal: 10,
+                          ),
+                          labelText: "Username",
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        onSaved: (value) => _password = value ?? "",
+                        textInputAction: TextInputAction.done,
+                        validator: (value) {
+                          if (value == null || value.isEmpty || value == "") {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        onFieldSubmitted: (_) {
+                          _submit();
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 13,
+                            horizontal: 10,
+                          ),
+                          labelText: "Password",
+                        ),
+                      ),
+                    ),
+                    Expanded(child: SizedBox()),
+                    ElevatedButton(
+                      child: Text(
+                        "Sign Up",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.copyWith(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        //primary: blueNavy[300],
+                        fixedSize: Size.fromHeight(45),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      onPressed: () {
+                        _submit();
+                      },
+                    ),
+
+                    Expanded(child: SizedBox(height: 30)),
+                    ElevatedButton(
+                      child: Text(
+                        "Log In",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.copyWith(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        //primary: blueNavy[300],
+                        fixedSize: Size.fromHeight(45),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      onPressed: () {
+                        context.read<AuthCubit>().resetAuthState();
+                        widget.onSignInPressed();
+                      },
+                    ),
+                    Expanded(child: SizedBox()),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

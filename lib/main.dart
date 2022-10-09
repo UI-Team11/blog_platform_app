@@ -1,4 +1,4 @@
-import 'package:blog_platform_app/main_menu_view.dart';
+import 'package:blog_platform_app/controllers/main_menu_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'custom_theme.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: blueNavy,
           ),
         ),
-        home: const MainMenuView(),
+        home: MainMenuView(),
       ),
     );
   }
