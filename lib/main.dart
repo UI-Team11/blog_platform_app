@@ -32,13 +32,22 @@ class MyApp extends StatelessWidget {
               authCubit.signInListener();
             }
           });
-
           return authCubit;
         }),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              //primary: blueNavy[300],
+              fixedSize: Size.fromHeight(45),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+          ),
+          //buttonTheme: ButtonThemeData(),
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: blueNavy,
           ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   final void Function() onSignUpPressed;
@@ -133,12 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             .subtitle1
                             ?.copyWith(color: Colors.white),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        //primary: blueNavy[300],
-                        fixedSize: Size.fromHeight(45),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
                       onPressed: () {
                         _submit();
                       },
@@ -152,12 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             .textTheme
                             .subtitle1
                             ?.copyWith(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        //primary: blueNavy[300],
-                        fixedSize: Size.fromHeight(45),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
                       ),
                       onPressed: () {
                         context.read<AuthCubit>().resetAuthState();

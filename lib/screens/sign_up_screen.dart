@@ -120,6 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
+
                         onSaved: (value) => _password = value ?? "",
                         textInputAction: TextInputAction.done,
                         validator: (value) {
@@ -138,6 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           labelText: "Password",
                         ),
+                        style: TextStyle(),
                       ),
                     ),
 
@@ -149,12 +151,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             .textTheme
                             .subtitle1
                             ?.copyWith(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        //primary: blueNavy[300],
-                        fixedSize: Size.fromHeight(45),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
                       ),
                       onPressed: () {
                         _submit();
@@ -169,12 +165,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             .textTheme
                             .subtitle1
                             ?.copyWith(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        //primary: blueNavy[300],
-                        fixedSize: Size.fromHeight(45),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
                       ),
                       onPressed: () {
                         context.read<AuthCubit>().resetAuthState();
