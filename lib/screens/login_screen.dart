@@ -57,13 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("Text"),
+                  Text("Log In"),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       onChanged: (value) => _email = value,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
+                        labelText: 'Email',
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 13,
                           horizontal: 10,
@@ -77,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: (value) => _username = value,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
+                        labelText: 'Username',
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 13,
                           horizontal: 10,
@@ -96,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                       },
                       decoration: const InputDecoration(
+                        labelText: 'Password',
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 13,
                           horizontal: 10,
