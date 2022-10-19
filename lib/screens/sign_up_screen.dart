@@ -1,11 +1,7 @@
 import 'package:blog_platform_app/widgets/bottom_loader_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
-import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_util.dart';
-import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/auth_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -42,7 +38,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.45,
       width: MediaQuery.of(context).size.height * 0.5,
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, currState) {
@@ -66,8 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: GestureDetector(
                 onTap: () => FocusScope.of(context).unfocus(),
                 child: Column(
-                  //mainAxisSize: MainAxisSize.max,
-                  //mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     (currState is AuthErrorState)
@@ -146,7 +140,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    Expanded(child: SizedBox()),
+
+                    SizedBox(height: 40),
                     ElevatedButton(
                       child: Text(
                         "Sign Up",
@@ -166,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     ),
 
-                    Expanded(child: SizedBox(height: 30)),
+                    SizedBox(height: 30),
                     ElevatedButton(
                       child: Text(
                         "Log In",
@@ -186,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         widget.onSignInPressed();
                       },
                     ),
-                    Expanded(child: SizedBox()),
+                    SizedBox(height: 30),
                   ],
                 ),
               ),

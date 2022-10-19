@@ -17,6 +17,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Padding(
       padding: const EdgeInsets.all(50),
       child: GridView.builder(
+        controller: ScrollController(),
         itemCount: 15,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           mainAxisSpacing: 100,

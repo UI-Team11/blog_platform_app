@@ -40,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.43,
       width: MediaQuery.of(context).size.height * 0.5,
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, currState) {
@@ -64,8 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: GestureDetector(
                 onTap: () => FocusScope.of(context).unfocus(),
                 child: Column(
-                  //mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   //mainAxisAlignment: MainAxisAlignment.center,
+
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     (currState is AuthErrorState)
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Expanded(child: SizedBox()),
+                    SizedBox(height: 40),
                     ElevatedButton(
                       child: Text(
                         "Log In",
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         widget.onSignUpPressed();
                       },
                     ),
-                    Expanded(child: SizedBox()),
+                    SizedBox(height: 30),
                   ],
                 ),
               ),

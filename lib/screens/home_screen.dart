@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: GridView.builder(
+        controller: ScrollController(),
         itemCount: 100,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           crossAxisSpacing: 20,
