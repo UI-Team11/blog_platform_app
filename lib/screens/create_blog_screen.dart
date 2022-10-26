@@ -78,15 +78,15 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   print('Button pressed ...');
                   context.read<BlogsCubit>().saveBlog(BlogModel(
                         creatorID: FirebaseAuth.instance.currentUser?.uid ?? "",
-                        title: "Test Title",
-                        content: "Test Content",
+                        title: "Test Title 2",
+                        content: "Test Content 2",
                         imageUrl: "Test Image Url",
                         likes: 10,
                         views: 10,
                         publishedDateUnix: 2130120,
                         modifiedDateUnix: 2130120,
                         status: BlogStatus.active,
-                        tags: {"Technology", "Science"},
+                        tags: {"Technology 2", "Science 2"},
                       ));
                 },
                 child: const Text('Create Blog'),
