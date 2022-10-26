@@ -1,3 +1,4 @@
+import 'package:blog_platform_app/bloc/blogs_cubit.dart';
 import 'package:blog_platform_app/controllers/main_menu_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
             }
           });
           return authCubit;
+        }),
+        BlocProvider<BlogsCubit>(create: (context){
+          return BlogsCubit();
         }),
       ],
       child: MaterialApp(
