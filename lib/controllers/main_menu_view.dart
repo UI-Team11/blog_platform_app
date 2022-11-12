@@ -36,35 +36,64 @@ class _MainMenuViewState extends State<MainMenuView> {
       appBar: AppBar(
         elevation: 0,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Center(
-              child: SizedBox(
-                height: kToolbarHeight / 1.3,
-                width: kToolbarHeight / 1.3,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return ProfileScreen();
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 10),
+          //   child: Center(
+          //     child: SizedBox(
+          //       height: kToolbarHeight / 1.3,
+          //       width: kToolbarHeight / 1.3,
+          //       child: ElevatedButton(
+          //         onPressed: () {
+          //           Navigator.of(context).pop();
+          //           showDialog(
+          //             context: context,
+          //             builder: (context) {
+          //               return ProfileScreen();
+          //             },
+          //           );
+          //         },
+          //         child: const Center(
+          //           child: Text("J"),
+          //         ),
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: blueNavy[300],
+          //
+          //           //fixedSize: const Size(200, 200),
+          //           shape: const CircleBorder(),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          BlocBuilder<AuthCubit, AuthState>(builder: (context, currState) {
+            if (currState is AuthSignedInState) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Center(
+                  child: SizedBox(
+                    height: kToolbarHeight / 1.5,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthCubit>().signOut();
                       },
-                    );
-                  },
-                  child: const Center(
-                    child: Text("J"),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: blueNavy[300],
+                      child: const Center(
+                        child: Text("Sign Out"),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
 
-                    //fixedSize: const Size(200, 200),
-                    shape: const CircleBorder(),
+                        //fixedSize: const Size(200, 200),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          )
+              );
+            }
+
+            return const SizedBox();
+          }),
         ],
       ),
       drawer: Drawer(
@@ -159,8 +188,8 @@ class _MainMenuViewState extends State<MainMenuView> {
                 Navigator.of(context).pop();
               },
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+            Expanded(
+              flex: 1,
               child: ListTile(
                 title: const Center(
                   child: Text("SIGN OUT",
@@ -178,11 +207,8 @@ class _MainMenuViewState extends State<MainMenuView> {
       body: SafeArea(
         child: IndexedStack(
           index: selectedIndex,
-
           children: [
-            // Place temp screens here
-
-            //HomeScreen(),
+            HomeScreen(),
             CategoryScreen(),
             CreateBlogScreen(),
             PublishedBlogScreen(),
