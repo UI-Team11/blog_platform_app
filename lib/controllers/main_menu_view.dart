@@ -5,6 +5,7 @@ import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:blog_platform_app/screens/categories_screen.dart';
 import 'package:blog_platform_app/screens/create_blog_screen.dart';
 import 'package:blog_platform_app/screens/home_screen.dart';
+import 'package:blog_platform_app/screens/profile_screen.dart';
 import 'package:blog_platform_app/screens/published_blogs_screen.dart';
 import 'package:blog_platform_app/screens/sign_up_screen.dart';
 import 'package:blog_platform_app/screens/subscriptions_screen.dart';
@@ -12,6 +13,9 @@ import 'package:blog_platform_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/screens/login_screen.dart';
 import 'package:blog_platform_app/custom_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth_cubit.dart';
 
 class MainMenuView extends StatefulWidget {
   bool isSignInScreen = true;
@@ -31,6 +35,37 @@ class _MainMenuViewState extends State<MainMenuView> {
       backgroundColor: const Color(backgroundColor),
       appBar: AppBar(
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Center(
+              child: SizedBox(
+                height: kToolbarHeight / 1.3,
+                width: kToolbarHeight / 1.3,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ProfileScreen();
+                      },
+                    );
+                  },
+                  child: const Center(
+                    child: Text("J"),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: blueNavy[300],
+
+                    //fixedSize: const Size(200, 200),
+                    shape: const CircleBorder(),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       drawer: Drawer(
         backgroundColor: const Color(primaryColorDark),
@@ -60,7 +95,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       child: Text("Sign In"),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: blueNavy[300],
+                      backgroundColor: blueNavy[300],
 
                       //fixedSize: const Size(200, 200),
                       shape: const CircleBorder(),
@@ -124,14 +159,30 @@ class _MainMenuViewState extends State<MainMenuView> {
                 Navigator.of(context).pop();
               },
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+              child: ListTile(
+                title: const Center(
+                  child: Text("SIGN OUT",
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                ),
+                onTap: () => context.read<AuthCubit>().signOut(),
+                hoverColor: const Color(0x11FFFFFF),
+              ),
+            ),
           ],
         ),
       ),
       body: SafeArea(
         child: IndexedStack(
           index: selectedIndex,
+
           children: [
-            HomeScreen(),
+            // Place temp screens here
+
+            //HomeScreen(),
             CategoryScreen(),
             CreateBlogScreen(),
             PublishedBlogScreen(),

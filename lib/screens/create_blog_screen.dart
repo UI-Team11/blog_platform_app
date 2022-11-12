@@ -76,6 +76,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               ElevatedButton(
                 onPressed: () {
                   print('Button pressed ...');
+                  // TODO: Replace hard coded values with variables
                   context.read<BlogsCubit>().saveBlog(BlogModel(
                         creatorID: FirebaseAuth.instance.currentUser?.uid ?? "",
                         title: "Test Title 2",

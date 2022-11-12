@@ -11,7 +11,48 @@ class BlogsCubit extends Cubit<BlogsState> {
   CollectionReference blogsCollection =
       FirebaseFirestore.instance.collection('blogs');
 
-  Future<void> loadBlogs() async {}
+  Future<void> loadBlogs() async {
+    Map<String, BlogModel> blogs = {};
+
+    emit(const BlogsLoadingState(blogs: {}));
+
+    blogsCollection.get().then((snapShot) {
+      List<QueryDocumentSnapshot> docs = snapShot.docs;
+      BlogStatus status;
+
+      for (QueryDocumentSnapshot doc in docs) {
+
+        if(doc['status'] == "active"){
+          status = BlogStatus.active;
+        } else if(doc['status'] == "inactive"){
+          status = BlogStatus.inactive;
+        } else {
+          status = BlogStatus.draft;
+        }
+
+        blogs[doc.id] = BlogModel(
+          blogID: doc.id,
+          creatorID: doc['creatorID'],
+          title: doc['title'],
+          content: doc['content'],
+          imageUrl: doc['imageUrl'],
+          likes: doc['likes'],
+          views: doc['views'],
+          publishedDateUnix: doc['publishedDateUnix'],
+          modifiedDateUnix: doc['modifiedDateUnix'],
+          status: status,
+          tags: {...doc['tags']},
+        );
+        
+        print(blogs[doc.id]);
+      }
+      
+      emit(BlogsLoadedState(blogs: blogs));
+    }).catchError((error) {
+      print(error.toString());
+      emit(BlogsErrorState(message: "Error loading the files", blogs: blogs));
+    });
+  }
 
   Future<void> saveBlog(BlogModel blog) async {
     Map<String, BlogModel> blogs;
@@ -40,6 +81,7 @@ class BlogsCubit extends Cubit<BlogsState> {
     });
   }
 
+  // TODO: Write this function
   Future<void> updateBlog() async {
     Map<String, BlogModel> blogs = state.blogs;
 

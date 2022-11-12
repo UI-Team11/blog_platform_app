@@ -44,8 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
       width: MediaQuery.of(context).size.height * 0.5,
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, currState) {
+
           if (currState is AuthLoadingState) {
-            return LoaderIndicator();
+            return const LoaderIndicator();
           }
           if (currState is AuthSignedInState) {
             return Column(
@@ -58,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             );
           }
+
           return SafeArea(
             child: Form(
               key: _formKey,
