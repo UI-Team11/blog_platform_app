@@ -21,10 +21,9 @@ class BlogsCubit extends Cubit<BlogsState> {
       BlogStatus status;
 
       for (QueryDocumentSnapshot doc in docs) {
-
-        if(doc['status'] == "active"){
+        if (doc['status'] == "active") {
           status = BlogStatus.active;
-        } else if(doc['status'] == "inactive"){
+        } else if (doc['status'] == "inactive") {
           status = BlogStatus.inactive;
         } else {
           status = BlogStatus.draft;
@@ -43,10 +42,10 @@ class BlogsCubit extends Cubit<BlogsState> {
           status: status,
           tags: {...doc['tags']},
         );
-        
+
         print(blogs[doc.id]);
       }
-      
+      print(blogs);
       emit(BlogsLoadedState(blogs: blogs));
     }).catchError((error) {
       print(error.toString());
@@ -61,6 +60,8 @@ class BlogsCubit extends Cubit<BlogsState> {
 
     emit(BlogsLoadingState(blogs: blogs));
 
+    print(blog);
+
     blogsCollection.add({
       'creatorID': blog.creatorID,
       'title': blog.title,
@@ -68,13 +69,14 @@ class BlogsCubit extends Cubit<BlogsState> {
       'imageUrl': blog.imageUrl,
       'likes': blog.likes,
       'views': blog.views,
-      'publishedDateUnix': blog.publishedDateUnix,
-      'modifiedDateUnix': blog.modifiedDateUnix,
+      'publishedDateUnix': DateTime.now().millisecondsSinceEpoch,
+      'modifiedDateUnix': DateTime.now().millisecondsSinceEpoch,
       'status': blog.status.toString(),
       'tags': blog.tags,
     }).then((value) {
       print("Document ID: ${value.id}");
       emit(BlogsLoadedState(blogs: blogs));
+      print("Loaded!");
     }).catchError((error) {
       print(error);
       emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
@@ -82,9 +84,41 @@ class BlogsCubit extends Cubit<BlogsState> {
   }
 
   // TODO: Write this function
-  Future<void> updateBlog() async {
+  Future<void> updateBlog(
+    String blogID,
+    String? creatorID,
+    String? title,
+    String? content,
+    String? imageUrl,
+    int? likes,
+    int? views,
+    int? publishedDateUnix,
+    int? modifiedDateUnix,
+    BlogStatus? status,
+    Set<String>? tags,
+  ) async {
     Map<String, BlogModel> blogs = state.blogs;
 
     emit(BlogsLoadingState(blogs: blogs));
+
+    print(blogID);
+
+    blogsCollection.doc(blogID).update({
+      'creatorID': creatorID ?? blogs[blogID]!.creatorID,
+      'title': title ?? blogs[blogID]!.title,
+      'content': content ?? blogs[blogID]!.content,
+      'imageUrl': imageUrl ?? blogs[blogID]!.imageUrl,
+      'likes': likes ?? blogs[blogID]!.likes,
+      'views': views ?? blogs[blogID]!.views,
+      'modifiedDateUnix': DateTime.now().millisecondsSinceEpoch,
+      'status': status.toString() ?? blogs[blogID]!.status,
+      'tags': tags ?? blogs[blogID]!.tags,
+    }).then((value) {
+      emit(BlogsLoadedState(blogs: blogs));
+      print("Updated!");
+    }).catchError((error) {
+      print(error);
+      emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
+    });
   }
 }

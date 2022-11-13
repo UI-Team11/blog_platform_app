@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
           });
           return authCubit;
         }),
-        BlocProvider<BlogsCubit>(create: (context){
-          return BlogsCubit();
+        BlocProvider<BlogsCubit>(create: (context) {
+          return BlogsCubit()..loadBlogs();
         }),
       ],
       child: MaterialApp(
