@@ -5,6 +5,7 @@ import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:blog_platform_app/screens/categories_screen.dart';
 import 'package:blog_platform_app/screens/create_blog_screen.dart';
 import 'package:blog_platform_app/screens/home_screen.dart';
+import 'package:blog_platform_app/screens/profile_screen.dart';
 import 'package:blog_platform_app/screens/published_blogs_screen.dart';
 import 'package:blog_platform_app/screens/sign_up_screen.dart';
 import 'package:blog_platform_app/screens/subscriptions_screen.dart';
@@ -131,6 +132,8 @@ class _MainMenuViewState extends State<MainMenuView> {
         child: IndexedStack(
           index: selectedIndex,
           children: [
+            //ProfileScreen(),
+            //SubscriptionsScreen()
             HomeScreen(),
             CategoryScreen(),
             CreateBlogScreen(),

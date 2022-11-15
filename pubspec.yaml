@@ -52,6 +52,10 @@ dependencies:
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
   cloud_firestore: ^4.0.2
+  profile: ^0.0.1
+  flutter_in_app_subscription: ^0.0.2
+  in_app_purchases_paywall_ui: ^0.7.0
+  flutter_countdown_timer: ^4.1.0
 
 
 dev_dependencies:

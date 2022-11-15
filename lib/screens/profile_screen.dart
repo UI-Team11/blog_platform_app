@@ -5,7 +5,7 @@ import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_theme.dart';
 import 'package:blog_platform_app/lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/custom_theme.dart';
-
+import 'package:profile/profile.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -14,27 +14,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-
-      child: Center(
-
-        child: Container(
-          //child: const Text("Profile", style: TextStyle(color: Colors.white)),
-          height: MediaQuery.of(context).size.height / 2,
-          width: MediaQuery.of(context).size.height / 2,
-
-          decoration: ShapeDecoration(
-            image: null,
-
-            color: blueNavy[300],
-            shape: const CircleBorder(),
-
-          ),
-        ),
-      ),
-    );
+        @override
+        Widget build(BuildContext context) {
+      return Scaffold(
+          body: Center(
+            child: Profile(imageUrl: "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif",
+              name: "Adrian Carranza",
+              website: "Blog Spot",
+              designation: "Front End Flutter Creator | Flutter Developer",
+              email: "adrian.carranza@myemail.edu",
+              phone_number: "1234567890",
+            ),
+          ));
   }
 }
 // child: Title(
