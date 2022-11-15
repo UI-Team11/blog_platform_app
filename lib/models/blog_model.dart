@@ -20,4 +20,15 @@ class BlogModel {
     required this.status,
     required this.tags,
   });
+
+  @override
+  String toString() {
+
+    return "BlogModel:\n"
+        "   Blog ID: $blogID,\n"
+        "   Creator ID: $creatorID,\n"
+        "   Title: $title,\n"
+        "   Status: $status\n"
+        "   Tags: $tags\n";
+  }
 }

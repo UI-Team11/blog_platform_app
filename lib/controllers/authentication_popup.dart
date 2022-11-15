@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:blog_platform_app/custom_theme.dart';
 import 'package:blog_platform_app/screens/login_screen.dart';
 import 'package:blog_platform_app/screens/sign_up_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth_cubit.dart';
 
 class AuthenticationPopup extends StatefulWidget {
   final bool isSignInScreen;
@@ -24,22 +27,34 @@ class _AuthenticationPopupState extends State<AuthenticationPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: const Color(backgroundColor),
-      content: (_isSignInScreen)
-          ? LoginScreen(() {
-              setState(() {
-                _isSignInScreen = false;
-              });
-            })
-          : SignUpScreen(() {
-              setState(() {
-                _isSignInScreen = true;
-              });
-            }),
-      title: Center(
-        child: Text((_isSignInScreen) ? "Log In" : "Sign Up"),
-      ),
+  return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, currState) {
+        if (currState is AuthSignedInState) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+      },
+      builder: (context, currState) {
+        return AlertDialog(
+          backgroundColor: const Color(backgroundColor),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.height * 0.5,
+            child: (_isSignInScreen)
+                ? LoginScreen(() {
+                    setState(() {
+                      _isSignInScreen = false;
+                    });
+                  })
+                : SignUpScreen(() {
+                    setState(() {
+                      _isSignInScreen = true;
+                    });
+                  }),
+          ),
+          title: Center(
+            child: Text((_isSignInScreen) ? "Log In" : "Sign Up"),
+          ),
+        );
+      },
     );
   }
 }

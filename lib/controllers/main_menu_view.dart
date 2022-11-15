@@ -13,6 +13,9 @@ import 'package:blog_platform_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/screens/login_screen.dart';
 import 'package:blog_platform_app/custom_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/auth_cubit.dart';
 
 class MainMenuView extends StatefulWidget {
   bool isSignInScreen = true;
@@ -32,6 +35,66 @@ class _MainMenuViewState extends State<MainMenuView> {
       backgroundColor: const Color(backgroundColor),
       appBar: AppBar(
         elevation: 0,
+        actions: [
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 10),
+          //   child: Center(
+          //     child: SizedBox(
+          //       height: kToolbarHeight / 1.3,
+          //       width: kToolbarHeight / 1.3,
+          //       child: ElevatedButton(
+          //         onPressed: () {
+          //           Navigator.of(context).pop();
+          //           showDialog(
+          //             context: context,
+          //             builder: (context) {
+          //               return ProfileScreen();
+          //             },
+          //           );
+          //         },
+          //         child: const Center(
+          //           child: Text("J"),
+          //         ),
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: blueNavy[300],
+          //
+          //           //fixedSize: const Size(200, 200),
+          //           shape: const CircleBorder(),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          BlocBuilder<AuthCubit, AuthState>(builder: (context, currState) {
+            if (currState is AuthSignedInState) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Center(
+                  child: SizedBox(
+                    height: kToolbarHeight / 1.5,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthCubit>().signOut();
+                      },
+                      child: const Center(
+                        child: Text("Sign Out"),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+
+                        //fixedSize: const Size(200, 200),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return const SizedBox();
+          }),
+        ],
       ),
       drawer: Drawer(
         backgroundColor: const Color(primaryColorDark),
@@ -61,7 +124,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       child: Text("Sign In"),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: blueNavy[300],
+                      backgroundColor: blueNavy[300],
 
                       //fixedSize: const Size(200, 200),
                       shape: const CircleBorder(),
@@ -124,6 +187,19 @@ class _MainMenuViewState extends State<MainMenuView> {
                 });
                 Navigator.of(context).pop();
               },
+            ),
+            Expanded(
+              flex: 1,
+              child: ListTile(
+                title: const Center(
+                  child: Text("SIGN OUT",
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                ),
+                onTap: () => context.read<AuthCubit>().signOut(),
+                hoverColor: const Color(0x11FFFFFF),
+              ),
             ),
           ],
         ),
