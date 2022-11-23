@@ -48,6 +48,15 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 },
               ),
               TextFormField(
+                decoration: const InputDecoration(labelText: 'Category'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
                 decoration: const InputDecoration(labelText: 'Text for Blog'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
