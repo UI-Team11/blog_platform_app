@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             if (user == null) {
               authCubit.signOutListener();
             } else if (user.displayName != null) {
-              authCubit.signInListener();
+              authCubit.signInListener(authUser: user);
             }
           });
           return authCubit;

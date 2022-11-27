@@ -1,11 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:blog_platform_app/models/user_model.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(const AuthInitialState());
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   Future<void> signUpWithEmail({
     required String email,
@@ -20,7 +24,24 @@ class AuthCubit extends Cubit<AuthState> {
 
       await credential.user?.updateDisplayName(username);
 
-      emit(const AuthSignedInState());
+      String id = credential.user!.uid;
+
+      UserModel user = UserModel(
+        id: id,
+        email: email,
+        username: username,
+        accountType: AccountType.free,
+        isAdmin: false,
+      );
+
+      usersCollection.doc(id).set({
+        "email": user.email,
+        "username": user.username,
+        "accountType": user.accountType.name,
+        "isAdmin": user.isAdmin,
+      });
+
+      emit(AuthSignedInState(user: user));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(const AuthErrorState(
@@ -54,7 +75,38 @@ class AuthCubit extends Cubit<AuthState> {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      emit(const AuthSignedInState());
+      User authUser = credential.user!;
+      usersCollection
+          .doc(authUser.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+
+          Map<String, dynamic>? userData =
+              documentSnapshot.data() as Map<String, dynamic>?;
+
+          AccountType status;
+          if(userData!['accountType'] == 'premium'){
+            status = AccountType.premium;
+          } else {
+            status = AccountType.free;
+          }
+
+          UserModel user = UserModel(
+            id: authUser.uid,
+            username: userData!['username'],
+            email: userData!['email'],
+            isAdmin: userData!['isAdmin'],
+            accountType: status,
+          );
+          emit(AuthSignedInState(user: user));
+        } else {
+          emit(const AuthErrorState(
+            "Error getting user data.",
+          ));
+        }
+      });
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(const AuthErrorState(
@@ -96,12 +148,40 @@ class AuthCubit extends Cubit<AuthState> {
     emit(const AuthInitialState());
   }
 
-  Future<void> signInListener() async {
-    emit(const AuthSignedInState());
+  Future<void> signInListener({required User authUser}) async {
+    usersCollection
+        .doc(authUser.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+
+        Map<String, dynamic>? userData =
+        documentSnapshot.data() as Map<String, dynamic>?;
+
+        AccountType status;
+        if(userData!['accountType'] == 'premium'){
+          status = AccountType.premium;
+        } else {
+          status = AccountType.free;
+        }
+
+        UserModel user = UserModel(
+          id: authUser.uid,
+          username: userData!['username'],
+          email: userData!['email'],
+          isAdmin: userData!['isAdmin'],
+          accountType: status,
+        );
+        emit(AuthSignedInState(user: user));
+      } else {
+        emit(const AuthErrorState(
+          "Error getting user data.",
+        ));
+      }
+    });
   }
 
   Future<void> resetAuthState() async {
     emit(const AuthInitialState());
   }
-
 }

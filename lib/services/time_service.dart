@@ -15,7 +15,7 @@ class TimeHelper {
 
   // Returns time elapsed since the given time
   String relativeTime(int timestamp) {
-    DateTime formatDate = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime formatDate = DateTime.fromMillisecondsSinceEpoch(timestamp );
     DateTime now = DateTime.now();
     Duration difference = now.difference(formatDate);
     return timeago.format(now.subtract(difference));
@@ -23,7 +23,7 @@ class TimeHelper {
 
   // Returns exact date and time
   String dateFromTimestamp(int timestamp) {
-    DateTime formatDate = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    DateTime formatDate = DateTime.fromMillisecondsSinceEpoch(timestamp );
     return DateFormat.yMd().add_jm().format(formatDate);
   }
 }

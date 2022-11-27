@@ -1,12 +1,15 @@
 enum AccountType { premium, free }
 
 class UserModel {
-  String username, name;
+  String username, email, id;
+  bool isAdmin;
   AccountType accountType;
 
   UserModel({
+    required this.id,
     required this.username,
-    required this.name,
+    required this.email,
+    required this.isAdmin,
     required this.accountType,
   });
 
@@ -15,7 +18,7 @@ class UserModel {
 
     return "UserModel:\n"
         "   User ID: $username,\n"
-        "   Name: $name,\n"
+        "   Email: $email,\n"
         "   Account Type: $accountType\n";
   }
 

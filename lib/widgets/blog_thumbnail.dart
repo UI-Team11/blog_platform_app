@@ -1,4 +1,5 @@
 import 'package:blog_platform_app/models/blog_model.dart';
+import 'package:blog_platform_app/screens/blog_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/services/time_service.dart';
 import '../custom_theme.dart';
@@ -21,10 +22,17 @@ class BlogThumbnail extends StatelessWidget {
         children: [
           Expanded(
             //TODO: Add images in storage
-            child: Container(
-              // width: 100,
-              // height: 100,
-              color: const Color(secondaryColorDark),
+            child: ElevatedButton(
+              child: Container(
+              ),
+              onPressed: (){
+                Navigator.of(context)
+                    .push(MaterialPageRoute(
+                  builder: (context) => BlogViewScreen(
+                    blog: blog,
+                  ),
+                ));
+              },
             ),
           ),
           Text(blog.title),

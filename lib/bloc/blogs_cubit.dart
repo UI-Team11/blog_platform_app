@@ -9,7 +9,7 @@ class BlogsCubit extends Cubit<BlogsState> {
   BlogsCubit() : super(const BlogsLoadedState(blogs: {}));
 
   CollectionReference blogsCollection =
-      FirebaseFirestore.instance.collection('blogs');
+  FirebaseFirestore.instance.collection('blogs');
 
   Future<void> loadBlogs() async {
     Map<String, BlogModel> blogs = {};
@@ -69,12 +69,13 @@ class BlogsCubit extends Cubit<BlogsState> {
       'imageUrl': blog.imageUrl,
       'likes': blog.likes,
       'views': blog.views,
-      'publishedDateUnix': DateTime.now().millisecondsSinceEpoch,
-      'modifiedDateUnix': DateTime.now().millisecondsSinceEpoch,
-      'status': blog.status.toString(),
+      'publishedDateUnix': blog.publishedDateUnix,
+      'modifiedDateUnix': blog.modifiedDateUnix,
+      'status': blog.status.name,
       'tags': blog.tags,
     }).then((value) {
       print("Document ID: ${value.id}");
+      blogs[value.id] = blog;
       emit(BlogsLoadedState(blogs: blogs));
       print("Loaded!");
     }).catchError((error) {
@@ -84,19 +85,17 @@ class BlogsCubit extends Cubit<BlogsState> {
   }
 
   // TODO: Write this function
-  Future<void> updateBlog(
-    String blogID,
-    String? creatorID,
-    String? title,
-    String? content,
-    String? imageUrl,
-    int? likes,
-    int? views,
-    int? publishedDateUnix,
-    int? modifiedDateUnix,
-    BlogStatus? status,
-    Set<String>? tags,
-  ) async {
+  Future<void> updateBlog(String blogID,
+      String? creatorID,
+      String? title,
+      String? content,
+      String? imageUrl,
+      int? likes,
+      int? views,
+      int? publishedDateUnix,
+      int? modifiedDateUnix,
+      BlogStatus? status,
+      Set<String>? tags,) async {
     Map<String, BlogModel> blogs = state.blogs;
 
     emit(BlogsLoadingState(blogs: blogs));
@@ -110,10 +109,21 @@ class BlogsCubit extends Cubit<BlogsState> {
       'imageUrl': imageUrl ?? blogs[blogID]!.imageUrl,
       'likes': likes ?? blogs[blogID]!.likes,
       'views': views ?? blogs[blogID]!.views,
-      'modifiedDateUnix': DateTime.now().millisecondsSinceEpoch,
-      'status': status.toString() ?? blogs[blogID]!.status,
+      'modifiedDateUnix': DateTime
+          .now()
+          .millisecondsSinceEpoch,
+      'status': status?.name ?? blogs[blogID]!.status.name,
       'tags': tags ?? blogs[blogID]!.tags,
     }).then((value) {
+      blogs[blogID]!.creatorID = creatorID ?? blogs[blogID]!.creatorID;
+      blogs[blogID]!.title = title ?? blogs[blogID]!.title;
+      blogs[blogID]!.content = content ?? blogs[blogID]!.content;
+      blogs[blogID]!.imageUrl =  imageUrl ?? blogs[blogID]!.imageUrl;
+      blogs[blogID]!.likes =  likes ?? blogs[blogID]!.likes;
+      blogs[blogID]!.views =  views ?? blogs[blogID]!.views;
+      blogs[blogID]!.modifiedDateUnix =  DateTime.now().millisecondsSinceEpoch;
+      blogs[blogID]!.status = status ?? blogs[blogID]!.status;
+      blogs[blogID]!.tags = tags ?? blogs[blogID]!.tags;
       emit(BlogsLoadedState(blogs: blogs));
       print("Updated!");
     }).catchError((error) {

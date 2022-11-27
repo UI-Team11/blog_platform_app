@@ -101,6 +101,7 @@ class _MainMenuViewState extends State<MainMenuView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //TODO: Update this button to go to the profile of the user when the user is signed in
             Container(
               height: MediaQuery.of(context).size.height / 4,
               color: const Color(secondaryColorDark),
@@ -146,7 +147,7 @@ class _MainMenuViewState extends State<MainMenuView> {
             ),
             const SizedBox(height: 20),
             DrawerItem(
-              text: "CATEGORY",
+              text: "CATEGORIES",
               icon: Icons.category,
               onTapFunc: () {
                 setState(() {
@@ -188,8 +189,9 @@ class _MainMenuViewState extends State<MainMenuView> {
                 Navigator.of(context).pop();
               },
             ),
-            Expanded(
-              flex: 1,
+            Expanded(flex: 1, child: SizedBox()),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: ListTile(
                 title: const Center(
                   child: Text("SIGN OUT",
@@ -201,6 +203,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                 hoverColor: const Color(0x11FFFFFF),
               ),
             ),
+            Expanded(flex: 1, child: SizedBox()),
           ],
         ),
       ),
@@ -214,7 +217,8 @@ class _MainMenuViewState extends State<MainMenuView> {
             CategoryScreen(),
             CreateBlogScreen(),
             PublishedBlogScreen(),
-            SubscriptionsScreen(),
+            // SubscriptionsScreen(), // TODO: FIX THIS
+            Container(),
           ],
         ),
       ),
