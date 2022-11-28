@@ -31,14 +31,9 @@ class _PublishedBlogScreenState extends State<PublishedBlogScreen> {
       return SizedBox(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: GridView.builder(
+          child: ListView.builder(
             controller: ScrollController(),
             itemCount: currState.blogs.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              maxCrossAxisExtent: maxThumbnailSize,
-            ),
             itemBuilder: (BuildContext context, int index) {
               String id = keys[index];
               return BlogThumbnail(blog: currState.blogs[id]!);

@@ -56,6 +56,9 @@ dependencies:
   flutter_in_app_subscription: ^0.0.2
   in_app_purchases_paywall_ui: ^0.7.0
   flutter_countdown_timer: ^4.1.0
+  multiselect_formfield: ^0.1.7
+  custom_form_field: ^0.0.6
+  scrollable_list_tabview: ^0.1.6
 
 
 dev_dependencies:
