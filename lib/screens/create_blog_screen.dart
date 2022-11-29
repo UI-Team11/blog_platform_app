@@ -52,7 +52,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
       if (currState is BlogsLoadedState) {
         return Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: <Widget>[
               const SizedBox(height: 20),
               Title(
@@ -97,12 +97,14 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               //     return null;
               //   },
               // ),
+              const SizedBox(height: 20),
               customFormField.field(
                 question: " Title",
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_title=val,
               ),
+              const SizedBox(height: 20),
           MultiSelectFormField(
 
             autovalidate: AutovalidateMode.disabled,
@@ -189,6 +191,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               });
             },
           ),
+              const SizedBox(height: 20),
               customFormField.field(
                 question: " Text for Blog",
                 verticalTextPadding: 25,

@@ -63,7 +63,7 @@ class BlogViewScreen extends StatelessWidget {
                         Image.network(
                           "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
                           fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.height * 0.5,
                         ),
                         const SizedBox(height: 20),
                         Row(
