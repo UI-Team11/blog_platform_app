@@ -53,6 +53,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         return Form(
           key: _formKey,
           child: ListView(
+            padding:  const EdgeInsets.symmetric(horizontal: 40),
             children: <Widget>[
               const SizedBox(height: 20),
               Title(
@@ -103,6 +104,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_title=val,
+                borderRadius: 0,
               ),
               const SizedBox(height: 20),
           MultiSelectFormField(
@@ -198,6 +200,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_content=val,
+                borderRadius: 0,
               ),
               // TextFormField(
               //   onSaved: (value) => _content = value ?? "",

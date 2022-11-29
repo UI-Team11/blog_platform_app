@@ -10,6 +10,7 @@ import 'package:blog_platform_app/screens/published_blogs_screen.dart';
 import 'package:blog_platform_app/screens/sign_up_screen.dart';
 import 'package:blog_platform_app/screens/subscriptions_screen.dart';
 import 'package:blog_platform_app/widgets/drawer_item.dart';
+import 'package:blog_platform_app/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/screens/login_screen.dart';
 import 'package:blog_platform_app/custom_theme.dart';
@@ -28,6 +29,7 @@ class MainMenuView extends StatefulWidget {
 
 class _MainMenuViewState extends State<MainMenuView> {
   int selectedIndex = 0;
+  String _text = "";
 
   void openLoginPopUp() {
     Navigator.of(context).pop();
@@ -49,6 +51,10 @@ class _MainMenuViewState extends State<MainMenuView> {
           backgroundColor: const Color(backgroundColor),
           appBar: AppBar(
             elevation: 0,
+            title: Align(
+              alignment: Alignment.centerRight,
+                child: SearchBar(),
+            ),
             actions: [
               // Padding(
               //   padding: const EdgeInsets.only(right: 10),
@@ -86,7 +92,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       padding: const EdgeInsets.only(right: 10),
                       child: Center(
                         child: SizedBox(
-                          height: kToolbarHeight / 1.5,
+                          height: kToolbarHeight * 0.6,
                           child: ElevatedButton(
                             onPressed: () {
                               context.read<AuthCubit>().signOut();
