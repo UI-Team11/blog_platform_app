@@ -58,7 +58,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               Title(
                   color: Colors.white,
                   child: Text("Create A Blog Form",
-                      style: TextStyle(color: Colors.white))),
+                      style: TextStyle(color: Colors.black, fontSize: 20))),
 
               // TextFormField(
               //   onSaved: (value) => _title = value ?? "",
