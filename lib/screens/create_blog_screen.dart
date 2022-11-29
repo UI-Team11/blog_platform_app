@@ -98,12 +98,13 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               //   },
               // ),
               customFormField.field(
-                question: "Title",
+                question: " Title",
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_title=val,
               ),
           MultiSelectFormField(
+
             autovalidate: AutovalidateMode.disabled,
             chipBackGroundColor: Colors.blue,
             chipLabelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -189,8 +190,8 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
             },
           ),
               customFormField.field(
-                question: "Text for Blog",
-                verticalTextPadding: 50,
+                question: " Text for Blog",
+                verticalTextPadding: 25,
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_content=val,
