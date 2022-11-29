@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Flexible(child: BlogsGirdView(blogs: filteredBlogs)),
+            Flexible(child: BlogsGridView(blogs: filteredBlogs)),
           ],
         );
       },

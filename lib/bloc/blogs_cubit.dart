@@ -75,6 +75,7 @@ class BlogsCubit extends Cubit<BlogsState> {
       'tags': blog.tags,
     }).then((value) {
       print("Document ID: ${value.id}");
+      blog.blogID = value.id;
       blogs[value.id] = blog;
       emit(BlogsLoadedState(blogs: blogs));
       print("Loaded!");
@@ -84,7 +85,6 @@ class BlogsCubit extends Cubit<BlogsState> {
     });
   }
 
-  // TODO: Write this function
   Future<void> updateBlog(String blogID,
       String? creatorID,
       String? title,

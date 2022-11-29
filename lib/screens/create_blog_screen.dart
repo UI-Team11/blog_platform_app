@@ -22,8 +22,6 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
   String _sources = "";
   Set<String> _categories = {};
   CustomFormField customFormField = CustomFormField();
-  List? _myCategory;
-  late String _myCategoryResult;
   final formKey = new GlobalKey<FormState>();
 
   void _submit() {
@@ -49,12 +47,6 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
     ));
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _myCategory = [];
-    _myCategoryResult = '';
-  }
   Widget build(BuildContext context) {
     return BlocBuilder<BlogsCubit, BlogsState>(builder: (context, currState) {
       if (currState is BlogsLoadedState) {
@@ -185,11 +177,14 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
             okButtonLabel: 'OK',
             cancelButtonLabel: 'CANCEL',
             hintWidget: Text('Please choose one or more'),
-            initialValue: _myCategory,
+            // initialValue: _myCategory,
             onSaved: (value) {
               if (value == null) return;
               setState(() {
-                _myCategory = value;
+                _categories = {};
+                for(var item in value){
+                  _categories.add(item as String);
+                }
               });
             },
           ),

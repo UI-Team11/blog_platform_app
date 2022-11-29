@@ -29,11 +29,19 @@ class _AuthenticationPopupState extends State<AuthenticationPopup> {
   Widget build(BuildContext context) {
   return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, currState) {
-        if (currState is AuthSignedInState) {
-          Navigator.of(context, rootNavigator: true).pop();
-        }
+        //TODO: Delete this
+        // if (currState is AuthSignedInState) {
+        //   Navigator.of(context, rootNavigator: true).pop();
+        //   print("Pop!!");
+        // }
       },
       builder: (context, currState) {
+
+        if (currState is AuthSignedInState) {
+          Navigator.of(context, rootNavigator: true).pop();
+          print("Pop!!");
+        }
+
         return AlertDialog(
           backgroundColor: const Color(backgroundColor),
           content: SizedBox(

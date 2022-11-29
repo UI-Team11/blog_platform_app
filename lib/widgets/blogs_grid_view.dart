@@ -2,17 +2,17 @@ import 'package:blog_platform_app/widgets/blog_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/models/blog_model.dart';
 
-class BlogsGirdView extends StatefulWidget {
+class BlogsGridView extends StatefulWidget {
 
   final List<BlogModel> blogs;
 
-  const BlogsGirdView({Key? key, required this.blogs}) : super(key: key);
+  const BlogsGridView({Key? key, required this.blogs}) : super(key: key);
 
   @override
-  State<BlogsGirdView> createState() => _BlogsGirdViewState();
+  State<BlogsGridView> createState() => _BlogsGridViewState();
 }
 
-class _BlogsGirdViewState extends State<BlogsGirdView> {
+class _BlogsGridViewState extends State<BlogsGridView> {
 
   @override
   Widget build(BuildContext context) {

@@ -55,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 });
               },),
             ),
-            Flexible(child: BlogsGirdView(blogs: filteredBlogs)),
+            Flexible(child: BlogsGridView(blogs: filteredBlogs)),
           ],
         );
       }
@@ -91,6 +91,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Text(tagList[index]),
               ),
               style: ElevatedButton.styleFrom(
+                backgroundColor: Color(secondaryColorDark),
                 //primary: blueNavy[300],
                 //fixedSize: const Size(200, 200),
                 shape: const RoundedRectangleBorder(),

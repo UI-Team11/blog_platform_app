@@ -1,4 +1,5 @@
 import 'package:blog_platform_app/bloc/blogs_cubit.dart';
+import 'package:blog_platform_app/bloc/subscriptions_cubit.dart';
 import 'package:blog_platform_app/controllers/main_menu_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         }),
         BlocProvider<BlogsCubit>(create: (context) {
           return BlogsCubit()..loadBlogs();
+        }),
+        BlocProvider<SubscriptionsCubit>(create: (context) {
+          return SubscriptionsCubit()..loadSubscriptions();
         }),
       ],
       child: MaterialApp(

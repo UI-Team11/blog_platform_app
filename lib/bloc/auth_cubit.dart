@@ -81,12 +81,11 @@ class AuthCubit extends Cubit<AuthState> {
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
-
           Map<String, dynamic>? userData =
               documentSnapshot.data() as Map<String, dynamic>?;
 
           AccountType status;
-          if(userData!['accountType'] == 'premium'){
+          if (userData!['accountType'] == 'premium') {
             status = AccountType.premium;
           } else {
             status = AccountType.free;
@@ -106,7 +105,6 @@ class AuthCubit extends Cubit<AuthState> {
           ));
         }
       });
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(const AuthErrorState(
@@ -136,6 +134,39 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<UserModel?> getUser(String userID) async {
+    UserModel? user;
+
+    await usersCollection.doc(userID).get().then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic>? userData =
+            documentSnapshot.data() as Map<String, dynamic>?;
+
+        AccountType status;
+        if (userData!['accountType'] == 'premium') {
+          status = AccountType.premium;
+        } else {
+          status = AccountType.free;
+        }
+
+        user = UserModel(
+          id: userID,
+          username: userData!['username'],
+          email: userData!['email'],
+          isAdmin: userData!['isAdmin'],
+          accountType: status,
+        );
+
+      } else {
+        user = null;
+      }
+    }).catchError((error) {
+      user = null;
+    });
+
+    return user;
+  }
+
   Future<void> signOut() async {
     emit(const AuthLoadingState());
 
@@ -154,12 +185,11 @@ class AuthCubit extends Cubit<AuthState> {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-
         Map<String, dynamic>? userData =
-        documentSnapshot.data() as Map<String, dynamic>?;
+            documentSnapshot.data() as Map<String, dynamic>?;
 
         AccountType status;
-        if(userData!['accountType'] == 'premium'){
+        if (userData!['accountType'] == 'premium') {
           status = AccountType.premium;
         } else {
           status = AccountType.free;

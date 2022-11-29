@@ -19,31 +19,44 @@ class PublishedBlogScreen extends StatefulWidget {
 class _PublishedBlogScreenState extends State<PublishedBlogScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BlogsCubit, BlogsState>(builder: (context, currState) {
-      List<String> keys = currState.blogs.keys.toList();
+    return BlocBuilder<BlogsCubit, BlogsState>(
+      builder: (context, currState) {
+        List<BlogModel> filteredBlogs = [];
+        List<String> keys = currState.blogs.keys.toList();
 
-      if (currState is BlogsErrorState) {
-        return Center(child: Text("Error: ${currState.message}"));
-      }
-      if (currState is BlogsLoadingState) {
-        return LoaderIndicator();
-      }
-      return SizedBox(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+        User? user = FirebaseAuth.instance.currentUser;
+
+        if (user == null) {
+          return const Center(child: Text("Error: Please sign in"));
+        }
+
+        if (currState is BlogsErrorState) {
+          return Center(child: Text("Error: ${currState.message}"));
+        }
+        if (currState is BlogsLoadingState) {
+          return LoaderIndicator();
+        }
+
+        for (BlogModel blog in currState.blogs.values) {
+          if (blog.creatorID == user.uid) {
+            filteredBlogs.add(blog);
+          }
+        }
+        if (filteredBlogs.isEmpty) {
+          return const Center(child: Text("You are not created any blog"));
+        }
+
+        return SizedBox(
           child: ListView.builder(
+            padding: const EdgeInsets.all(20),
             controller: ScrollController(),
-            itemCount: currState.blogs.length,
+            itemCount: filteredBlogs.length,
             itemBuilder: (BuildContext context, int index) {
-              String id = keys[index];
-              return BlogThumbnail(blog: currState.blogs[id]!);
+              return BlogThumbnail(blog: filteredBlogs[index]!);
             },
           ),
-        ),
-      );
-    }
+        );
+      },
     );
   }
 }
-
-
