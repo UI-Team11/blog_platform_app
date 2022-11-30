@@ -89,7 +89,7 @@ class BlogViewScreen extends StatelessWidget {
                               publisher.username,
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            Expanded(child: SizedBox(width: 5)),
+                            Expanded(child: SizedBox()),
                             (authCurrState is AuthSignedInState)
                                 ? SubscriptionButton(
                                     publisher: publisher,
@@ -104,23 +104,21 @@ class BlogViewScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         const SizedBox(height: 50),
-                        Expanded(
-                          child: Text(
-                            blog.content,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(height: 1.4),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
-                          ),
+                        Text(
+                          blog.content,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(height: 1.4),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
                         ),
                       ],
                     ),
                   ),
                 );
               } else {
-                return LoaderIndicator();
+                return const LoaderIndicator(color: Color(primaryColorDark));
               }
             },
           );

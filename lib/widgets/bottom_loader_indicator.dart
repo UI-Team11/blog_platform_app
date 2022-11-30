@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
  */
 
 class LoaderIndicator extends StatelessWidget {
-  const LoaderIndicator({Key? key}) : super(key: key);
+  final Color? color;
+
+  const LoaderIndicator({Key? key, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +16,13 @@ class LoaderIndicator extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: Container(
         alignment: Alignment.center,
-        child: const Center(
+        child: Center(
           child: SizedBox(
             width: 33,
             height: 33,
             child: CircularProgressIndicator(
               strokeWidth: 1.5,
-              color: Colors.white,
+              color: color ?? Colors.white,
             ),
           ),
         ),

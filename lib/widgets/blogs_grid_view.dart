@@ -19,6 +19,7 @@ class _BlogsGridViewState extends State<BlogsGridView> {
     late final List<BlogModel> blogs = widget.blogs;
 
     return GridView.builder(
+      // physics: ScrollPhysics,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       controller: ScrollController(),
       itemCount: blogs.length,

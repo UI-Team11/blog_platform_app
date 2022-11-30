@@ -1,4 +1,5 @@
 import 'package:blog_platform_app/bloc/blogs_cubit.dart';
+import 'package:blog_platform_app/custom_theme.dart';
 import 'package:blog_platform_app/models/blog_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -241,7 +242,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         );
       }
       if (currState is BlogsLoadingState) {
-        return const LoaderIndicator();
+        return LoaderIndicator(color: Color(primaryColorDark));
       }
 
       return const Center(child: Text("Error"));

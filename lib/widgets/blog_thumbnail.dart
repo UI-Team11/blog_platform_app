@@ -18,38 +18,31 @@ class BlogThumbnail extends StatelessWidget {
     return SizedBox(
       width: maxThumbnailSize,
       height: maxThumbnailSize,
-      child: Column(
-        children: [
-          Expanded(
-            //TODO: Add images in storage
-            child: ElevatedButton(
-              child: Image.network(
-                "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
-                fit: BoxFit.cover,
-              ),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size.zero, // Set this
-                padding: EdgeInsets.zero, // and this
-              ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BlogViewScreen(
-                    blog: blog,
-                  ),
-                ));
-              },
+      child:InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => BlogViewScreen(
+              blog: blog,
             ),
-          ),
-          Text(blog.title),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("${blog.likes} Likes"),
-              const Expanded(child: SizedBox()),
-              Text(_timeHelper.dateFromTimestamp(blog.modifiedDateUnix)),
-            ],
-          ),
-        ],
+          ));
+        },
+        child: ListView(
+          children: [
+            Image.network(
+              "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
+              fit: BoxFit.cover,
+            ),
+            Text(blog.title),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("${blog.likes} Likes"),
+                const Expanded(child: SizedBox()),
+                Text(_timeHelper.dateFromTimestamp(blog.modifiedDateUnix)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
