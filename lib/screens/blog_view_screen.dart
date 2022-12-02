@@ -76,7 +76,7 @@ class BlogViewScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {},
                                 child: const Center(
-                                  child: Text("J"),
+                                  child: Text(""),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(secondaryColorDark),
@@ -89,7 +89,7 @@ class BlogViewScreen extends StatelessWidget {
                             SizedBox(width: 10),
                             Text(
                               publisher.username,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             Expanded(child: SizedBox()),
                             (authCurrState is AuthSignedInState)

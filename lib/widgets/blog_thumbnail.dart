@@ -32,13 +32,13 @@ class BlogThumbnail extends StatelessWidget {
               "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
               fit: BoxFit.cover,
             ),
-            Text(blog.title),
+            Text(blog.title, textAlign: TextAlign.center, style: TextStyle(fontSize: 20),),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("${blog.likes} Likes"),
+                Text("${blog.likes} Likes", textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
                 const Expanded(child: SizedBox()),
-                Text(_timeHelper.dateFromTimestamp(blog.modifiedDateUnix)),
+                Text(_timeHelper.dateFromTimestamp(blog.modifiedDateUnix), textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
               ],
             ),
           ],
