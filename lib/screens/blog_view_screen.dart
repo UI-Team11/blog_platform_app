@@ -56,16 +56,18 @@ class BlogViewScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         Center(
                           child: Text(blog.title,
-                              style: Theme.of(context).textTheme.headline4,),
+                              style: Theme.of(context).textTheme.headlineLarge, selectionColor: Colors.black,),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 20,  child: const DecoratedBox(
+                            decoration: const BoxDecoration(
+                                color: Colors.blueGrey))),
                         //TODO: Replace hard coded url with the one of the blog
                         Image.network(
                           "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
                           fit: BoxFit.cover,
                           height: MediaQuery.of(context).size.height * 0.5,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             SizedBox(
@@ -103,7 +105,9 @@ class BlogViewScreen extends StatelessWidget {
                           blog.publishedDate,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 20, child: const DecoratedBox(
+                            decoration: const BoxDecoration(
+                                color: Colors.blueGrey))),
                         Expanded(
                           child: Text(
                             blog.content,

@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, currState) {
@@ -118,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         labelText: "Password",
                       ),
+                      obscureText: true,
                     ),
                   ),
                   SizedBox(height: 40),

@@ -108,7 +108,9 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 onSavedCallback: (String val)=>_title=val,
                 borderRadius: 0,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20, child: const DecoratedBox(
+                  decoration: const BoxDecoration(
+                      color: Colors.blueGrey))),
               customFormField.field(
                 verticalTextPadding: 20,
                 question: " Image URL",
@@ -117,7 +119,9 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 onSavedCallback: (String val)=>_title=val,
                 borderRadius: 0,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20, child: const DecoratedBox(
+                  decoration: const BoxDecoration(
+                      color: Colors.blueGrey))),
           MultiSelectFormField(
 
             autovalidate: AutovalidateMode.disabled,
@@ -204,7 +208,9 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               });
             },
           ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20, child: const DecoratedBox(
+                  decoration: const BoxDecoration(
+                      color: Colors.blueGrey))),
               customFormField.field(
                 question: " Text for Blog",
                 verticalTextPadding: 20,
