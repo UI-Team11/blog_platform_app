@@ -29,7 +29,7 @@ class BlogThumbnail extends StatelessWidget {
         child: ListView(
           children: [
             Image.network(
-              "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
+              "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif",
               fit: BoxFit.cover,
             ),
             Text(blog.title, textAlign: TextAlign.center, style: TextStyle(fontSize: 20),),

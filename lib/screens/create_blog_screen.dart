@@ -239,7 +239,6 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               //     return null;
               //   },
               // ),
-              
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
