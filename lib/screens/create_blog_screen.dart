@@ -101,7 +101,17 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               // ),
               const SizedBox(height: 20),
               customFormField.field(
+                verticalTextPadding: 20,
                 question: " Title",
+                canBeNull: false,
+                formKey: formKey,
+                onSavedCallback: (String val)=>_title=val,
+                borderRadius: 0,
+              ),
+              const SizedBox(height: 20),
+              customFormField.field(
+                verticalTextPadding: 20,
+                question: " Image URL",
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_title=val,
@@ -197,7 +207,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               const SizedBox(height: 20),
               customFormField.field(
                 question: " Text for Blog",
-                verticalTextPadding: 25,
+                verticalTextPadding: 20,
                 canBeNull: false,
                 formKey: formKey,
                 onSavedCallback: (String val)=>_content=val,

@@ -56,7 +56,7 @@ class BlogViewScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         Center(
                           child: Text(blog.title,
-                              style: Theme.of(context).textTheme.titleLarge),
+                              style: Theme.of(context).textTheme.headline4,),
                         ),
                         const SizedBox(height: 20),
                         //TODO: Replace hard coded url with the one of the blog
@@ -101,9 +101,10 @@ class BlogViewScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           blog.publishedDate,
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 50),
+<<<<<<< Updated upstream
                         Text(
                           blog.content,
                           style: Theme.of(context)
@@ -112,6 +113,18 @@ class BlogViewScreen extends StatelessWidget {
                               ?.copyWith(height: 1.4),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 5,
+=======
+                        Expanded(
+                          child: Text(
+                            blog.content,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(height: 1.4),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+>>>>>>> Stashed changes
                         ),
                       ],
                     ),
