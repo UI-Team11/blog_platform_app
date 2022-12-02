@@ -104,16 +104,6 @@ class BlogViewScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 50),
-<<<<<<< Updated upstream
-                        Text(
-                          blog.content,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(height: 1.4),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 5,
-=======
                         Expanded(
                           child: Text(
                             blog.content,
@@ -122,9 +112,8 @@ class BlogViewScreen extends StatelessWidget {
                                 .titleMedium
                                 ?.copyWith(height: 1.4),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
+                            maxLines: 1000,
                           ),
->>>>>>> Stashed changes
                         ),
                       ],
                     ),
