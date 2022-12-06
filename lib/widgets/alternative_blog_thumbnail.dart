@@ -5,15 +5,14 @@ import '../custom_theme.dart';
 
 const double maxThumbnailSize = 200;
 
-class BlogThumbnail extends StatelessWidget {
+class AlternativeBlogThumbnail extends StatelessWidget {
   final BlogModel blog;
 
-  const BlogThumbnail({Key? key, required this.blog}) : super(key: key);
+  const AlternativeBlogThumbnail({Key? key, required this.blog}) : super(key: key);
 
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: maxThumbnailSize,
+      width: MediaQuery.of(context).size.width,
       height: maxThumbnailSize,
       child: ListView(
         children: [
@@ -31,9 +30,15 @@ class BlogThumbnail extends StatelessWidget {
               children: [
                 SizedBox(
                   height: maxThumbnailSize * 0.6,
-                  child: Image.network(
-                    blog.imageUrl,
-                    fit: BoxFit.cover,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          blog.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: maxThumbnailSize * 0.02),

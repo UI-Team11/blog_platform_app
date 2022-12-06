@@ -1,3 +1,4 @@
+import 'package:blog_platform_app/widgets/alternative_blog_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_platform_app/bloc/blogs_cubit.dart';
 import 'package:blog_platform_app/custom_theme.dart';
@@ -5,7 +6,6 @@ import 'package:blog_platform_app/models/blog_model.dart';
 import 'package:blog_platform_app/widgets/bottom_loader_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:blog_platform_app/widgets/blog_thumbnail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:blog_platform_app/widgets/bottom_loader_indicator.dart';
 
@@ -47,12 +47,37 @@ class _PublishedBlogScreenState extends State<PublishedBlogScreen> {
         }
 
         return SizedBox(
+          width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             padding: const EdgeInsets.all(20),
             controller: ScrollController(),
             itemCount: filteredBlogs.length,
             itemBuilder: (BuildContext context, int index) {
-              return BlogThumbnail(blog: filteredBlogs[index]!);
+              return Padding(
+                // padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.3),
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child:
+                          AlternativeBlogThumbnail(blog: filteredBlogs[index]!),
+                    ),
+                    SizedBox(width: 10),
+                    Padding(
+                      padding: EdgeInsets.only(top: maxThumbnailSize * 0.2),
+                      child: IconButton(
+                        onPressed: () {
+                          context.read<BlogsCubit>().deleteBlog(
+                                blogID: filteredBlogs[index]!.blogID!,
+                              );
+                        },
+                        icon: const Icon(Icons.clear_outlined),
+                      ),
+                    )
+                  ],
+                ),
+              );
             },
           ),
         );

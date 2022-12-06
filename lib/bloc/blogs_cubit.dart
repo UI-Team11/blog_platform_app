@@ -9,7 +9,7 @@ class BlogsCubit extends Cubit<BlogsState> {
   BlogsCubit() : super(const BlogsLoadedState(blogs: {}));
 
   CollectionReference blogsCollection =
-  FirebaseFirestore.instance.collection('blogs');
+      FirebaseFirestore.instance.collection('blogs');
 
   Future<void> loadBlogs() async {
     Map<String, BlogModel> blogs = {};
@@ -85,17 +85,19 @@ class BlogsCubit extends Cubit<BlogsState> {
     });
   }
 
-  Future<void> updateBlog(String blogID,
-      String? creatorID,
-      String? title,
-      String? content,
-      String? imageUrl,
-      int? likes,
-      int? views,
-      int? publishedDateUnix,
-      int? modifiedDateUnix,
-      BlogStatus? status,
-      Set<String>? tags,) async {
+  Future<void> updateBlog(
+    String blogID,
+    String? creatorID,
+    String? title,
+    String? content,
+    String? imageUrl,
+    int? likes,
+    int? views,
+    int? publishedDateUnix,
+    int? modifiedDateUnix,
+    BlogStatus? status,
+    Set<String>? tags,
+  ) async {
     Map<String, BlogModel> blogs = state.blogs;
 
     emit(BlogsLoadingState(blogs: blogs));
@@ -109,19 +111,17 @@ class BlogsCubit extends Cubit<BlogsState> {
       'imageUrl': imageUrl ?? blogs[blogID]!.imageUrl,
       'likes': likes ?? blogs[blogID]!.likes,
       'views': views ?? blogs[blogID]!.views,
-      'modifiedDateUnix': DateTime
-          .now()
-          .millisecondsSinceEpoch,
+      'modifiedDateUnix': DateTime.now().millisecondsSinceEpoch,
       'status': status?.name ?? blogs[blogID]!.status.name,
       'tags': tags ?? blogs[blogID]!.tags,
     }).then((value) {
       blogs[blogID]!.creatorID = creatorID ?? blogs[blogID]!.creatorID;
       blogs[blogID]!.title = title ?? blogs[blogID]!.title;
       blogs[blogID]!.content = content ?? blogs[blogID]!.content;
-      blogs[blogID]!.imageUrl =  imageUrl ?? blogs[blogID]!.imageUrl;
-      blogs[blogID]!.likes =  likes ?? blogs[blogID]!.likes;
-      blogs[blogID]!.views =  views ?? blogs[blogID]!.views;
-      blogs[blogID]!.modifiedDateUnix =  DateTime.now().millisecondsSinceEpoch;
+      blogs[blogID]!.imageUrl = imageUrl ?? blogs[blogID]!.imageUrl;
+      blogs[blogID]!.likes = likes ?? blogs[blogID]!.likes;
+      blogs[blogID]!.views = views ?? blogs[blogID]!.views;
+      blogs[blogID]!.modifiedDateUnix = DateTime.now().millisecondsSinceEpoch;
       blogs[blogID]!.status = status ?? blogs[blogID]!.status;
       blogs[blogID]!.tags = tags ?? blogs[blogID]!.tags;
       emit(BlogsLoadedState(blogs: blogs));
@@ -130,5 +130,22 @@ class BlogsCubit extends Cubit<BlogsState> {
       print(error);
       emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
     });
+  }
+
+  Future<void> deleteBlog({required String blogID}) async {
+    Map<String, BlogModel> blogs = state.blogs;
+
+    emit(BlogsLoadingState(blogs: blogs));
+
+    blogsCollection.doc(blogID).delete().then(
+      (doc) {
+        blogs.remove(blogID);
+        emit(BlogsLoadedState(blogs: blogs));
+        print("Blog Deleted!");
+      },
+      onError: (error) {
+        print(error);
+        emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
+      });
   }
 }

@@ -133,6 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         labelText: "Password",
                       ),
+                      obscureText: true,
                       style: TextStyle(),
                     ),
                   ),
