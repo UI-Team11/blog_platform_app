@@ -59,7 +59,7 @@ dependencies:
   multiselect_formfield: ^0.1.7
   custom_form_field: ^0.0.6
   scrollable_list_tabview: ^0.1.6
-
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:

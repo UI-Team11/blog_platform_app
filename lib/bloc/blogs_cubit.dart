@@ -43,9 +43,7 @@ class BlogsCubit extends Cubit<BlogsState> {
           tags: {...doc['tags']},
         );
 
-        print(blogs[doc.id]);
       }
-      print(blogs);
       emit(BlogsLoadedState(blogs: blogs));
     }).catchError((error) {
       print(error.toString());
@@ -85,8 +83,8 @@ class BlogsCubit extends Cubit<BlogsState> {
     });
   }
 
-  Future<void> updateBlog(
-    String blogID,
+  Future<void> updateBlog({
+    required String blogID,
     String? creatorID,
     String? title,
     String? content,
@@ -97,7 +95,7 @@ class BlogsCubit extends Cubit<BlogsState> {
     int? modifiedDateUnix,
     BlogStatus? status,
     Set<String>? tags,
-  ) async {
+  }) async {
     Map<String, BlogModel> blogs = state.blogs;
 
     emit(BlogsLoadingState(blogs: blogs));
@@ -137,15 +135,13 @@ class BlogsCubit extends Cubit<BlogsState> {
 
     emit(BlogsLoadingState(blogs: blogs));
 
-    blogsCollection.doc(blogID).delete().then(
-      (doc) {
-        blogs.remove(blogID);
-        emit(BlogsLoadedState(blogs: blogs));
-        print("Blog Deleted!");
-      },
-      onError: (error) {
-        print(error);
-        emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
-      });
+    blogsCollection.doc(blogID).delete().then((doc) {
+      blogs.remove(blogID);
+      emit(BlogsLoadedState(blogs: blogs));
+      print("Blog Deleted!");
+    }, onError: (error) {
+      print(error);
+      emit(BlogsErrorState(message: "Error saving blog", blogs: blogs));
+    });
   }
 }

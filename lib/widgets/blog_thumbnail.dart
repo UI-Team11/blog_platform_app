@@ -21,7 +21,7 @@ class BlogThumbnail extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => BlogViewScreen(
-                  blog: blog,
+                  blogID: blog.blogID!,
                 ),
               ));
             },

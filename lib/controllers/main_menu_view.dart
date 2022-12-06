@@ -48,7 +48,7 @@ class _MainMenuViewState extends State<MainMenuView> {
     return Builder(
       builder: (context) {
         return Scaffold(
-          backgroundColor: const Color(backgroundColor),
+          backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 0,
             title: Align(

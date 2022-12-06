@@ -1,7 +1,10 @@
 import 'package:blog_platform_app/bloc/auth_cubit.dart';
+import 'package:blog_platform_app/bloc/blogs_cubit.dart';
 import 'package:blog_platform_app/bloc/subscriptions_cubit.dart';
+import 'package:blog_platform_app/controllers/authentication_popup.dart';
 import 'package:blog_platform_app/custom_theme.dart';
 import 'package:blog_platform_app/widgets/bottom_loader_indicator.dart';
+import 'package:blog_platform_app/widgets/like_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,132 +21,167 @@ import '../widgets/subscription_button.dart';
  */
 
 class BlogViewScreen extends StatelessWidget {
-  final BlogModel blog;
+  final String blogID;
 
   const BlogViewScreen({
     Key? key,
-    required this.blog,
+    required this.blogID,
   }) : super(key: key);
+
+  void openLoginPopUp() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(backgroundColor),
+      backgroundColor: Colors.white,
       appBar: AppBar(),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, authCurrState) {
-          return FutureBuilder(
-            future: context.read<AuthCubit>().getUser(blog.creatorID),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                UserModel? publisher = snapshot.data as UserModel?;
+          return BlocBuilder<BlogsCubit, BlogsState>(
+            builder: (context, blogsCurrState) {
+              BlogModel blog = blogsCurrState.blogs[blogID]!;
 
-                if (snapshot.hasError || publisher == null) {
-                  return const Center(
-                    child: Text("Error while getting publisher data"),
-                  );
-                }
+              return FutureBuilder(
+                future: context.read<AuthCubit>().getUser(blog.creatorID),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    UserModel? publisher = snapshot.data as UserModel?;
 
-                //TODO: Rework this into another class or widget
-                return Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.2,
-                    ),
-                    child: ListView(
-                      //crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(height: 20),
-                        Center(
-                          child: Text(
-                            blog.title,
-                            style: Theme.of(context).textTheme.headlineLarge,
-                            selectionColor: Colors.black,
-                          ),
+                    if (snapshot.hasError || publisher == null) {
+                      return const Center(
+                        child: Text("Error while getting publisher data"),
+                      );
+                    }
+
+                    print(authCurrState.user);
+                    //TODO: Rework this into another class or widget
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.2,
                         ),
-                        const SizedBox(
-                          height: 20,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.blueGrey),
-                          ),
-                        ),
-                        //TODO: Replace hard coded url with the one of the blog
-                        Image.network(
-                          blog.imageUrl,
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
+                        child: ListView(
+                          //crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // SizedBox(
-                            //   height: kToolbarHeight / 1.3,
-                            //   width: kToolbarHeight / 1.3,
-                            //   child: ElevatedButton(
-                            //     onPressed: () {},
-                            //     child: const Center(
-                            //       child: Text(""),
-                            //     ),
-                            //     style: ElevatedButton.styleFrom(
-                            //       backgroundColor: Color(secondaryColorDark),
-                            //
-                            //       //fixedSize: const Size(200, 200),
-                            //       shape: const CircleBorder(),
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(width: 10),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            const SizedBox(height: 20),
+                            Center(
+                              child: Text(
+                                blog.title,
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                                selectionColor: Colors.black,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                              child: DecoratedBox(
+                                decoration:
+                                    BoxDecoration(color: Colors.blueGrey),
+                              ),
+                            ),
+                            Image.network(
+                              blog.imageUrl,
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.5,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
                               children: [
-                                Text(
-                                  "Published by ${publisher.username}",
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
+                                // SizedBox(
+                                //   height: kToolbarHeight / 1.3,
+                                //   width: kToolbarHeight / 1.3,
+                                //   child: ElevatedButton(
+                                //     onPressed: () {},
+                                //     child: const Center(
+                                //       child: Text(""),
+                                //     ),
+                                //     style: ElevatedButton.styleFrom(
+                                //       backgroundColor: Color(secondaryColorDark),
+                                //
+                                //       //fixedSize: const Size(200, 200),
+                                //       shape: const CircleBorder(),
+                                //     ),
+                                //   ),
+                                // ),
+                                // SizedBox(width: 10),
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(Icons.thumb_up, size: 10),
-                                    SizedBox(width: 3),
                                     Text(
-                                      "${blog.likes} Likes · ${blog.publishedDate}",
+                                      "Published by ${publisher.username}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
                                     ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        (authCurrState is AuthSignedInState)
+                                            ? LikeButton(
+                                                blog: blog,
+                                                user: authCurrState.user!,
+                                              )
+                                            : IconButton(
+                                                padding: EdgeInsets.all(0.0),
+                                                onPressed: () {
+                                                  if (authCurrState
+                                                      is! AuthSignedInState) {
+                                                    Navigator.of(context).pop();
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AuthenticationPopup(
+                                                          isSignInScreen: true,
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                },
+                                                icon: Icon(Icons.thumb_up),
+                                              ),
+                                        SizedBox(width: 3),
+                                        Text(
+                                          "${blog.likes} Likes · ${blog.publishedDate}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
+                                Expanded(child: SizedBox()),
+                                (authCurrState is AuthSignedInState)
+                                    ? SubscriptionButton(
+                                        publisher: publisher,
+                                        user: authCurrState.user!,
+                                      )
+                                    : const SizedBox(),
                               ],
                             ),
-                            Expanded(child: SizedBox()),
-                            (authCurrState is AuthSignedInState)
-                                ? SubscriptionButton(
-                                    publisher: publisher,
-                                    user: authCurrState.user!,
-                                  )
-                                : const SizedBox(),
+                            const SizedBox(height: 50),
+                            Text(
+                              blog.content,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(height: 1.4),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1000,
+                            ),
                           ],
                         ),
-
-                        const SizedBox(height: 50),
-                        Text(
-                          blog.content,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(height: 1.4),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1000,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return const LoaderIndicator(color: Color(primaryColorDark));
-              }
+                      ),
+                    );
+                  } else {
+                    return const LoaderIndicator(
+                        color: Color(primaryColorDark));
+                  }
+                },
+              );
             },
           );
         },

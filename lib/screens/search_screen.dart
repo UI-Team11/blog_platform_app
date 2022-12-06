@@ -18,7 +18,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(backgroundColor),
+      backgroundColor: Colors.white,
       appBar: AppBar(),
       body: BlocBuilder<BlogsCubit, BlogsState>(
         builder: (context, currState) {

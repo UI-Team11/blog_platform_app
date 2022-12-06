@@ -43,7 +43,7 @@ class _AuthenticationPopupState extends State<AuthenticationPopup> {
         }
 
         return AlertDialog(
-          backgroundColor: const Color(backgroundColor),
+          backgroundColor: Colors.white,
           content: SizedBox(
             width: MediaQuery.of(context).size.height * 0.5,
             child: (_isSignInScreen)
