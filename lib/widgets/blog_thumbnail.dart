@@ -1,10 +1,9 @@
 import 'package:blog_platform_app/models/blog_model.dart';
 import 'package:blog_platform_app/screens/blog_view_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:blog_platform_app/services/time_service.dart';
 import '../custom_theme.dart';
 
-const double maxThumbnailSize = 250;
+const double maxThumbnailSize = 200;
 
 class BlogThumbnail extends StatelessWidget {
   final BlogModel blog;
@@ -13,36 +12,88 @@ class BlogThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TimeHelper _timeHelper = TimeHelper();
-
     return SizedBox(
       width: maxThumbnailSize,
       height: maxThumbnailSize,
-      child:InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => BlogViewScreen(
-              blog: blog,
-            ),
-          ));
-        },
-        child: ListView(
-          children: [
-            Image.network(
-              "https://docs.flutter.dev/assets/images/dash/dash-fainting.gif",
-              fit: BoxFit.cover,
-            ),
-            Text(blog.title, textAlign: TextAlign.center, style: TextStyle(fontSize: 20),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+      child: ListView(
+        children: [
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //       builder: (context) => BlogViewScreen(
+          //         blog: blog,
+          //       ),
+          //     ));
+          //   },
+          //   child: SizedBox(
+          //     height: maxThumbnailSize * 0.6,
+          //     child: Image.network(
+          //       blog.imageUrl,
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: maxThumbnailSize * 0.34,
+          //   child: Column(
+          //     children: [
+          //       //SizedBox(),
+          //       Text(blog.title, textAlign: TextAlign.center, style: const TextStyle(fontSize: maxThumbnailSize * 0.1),),
+          //       //SizedBox(),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(height: maxThumbnailSize * 0.02),
+          // Text(
+          //   blog.title,
+          //   textAlign: TextAlign.center,
+          //   style: const TextStyle(fontSize: maxThumbnailSize * 0.07),
+          // ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BlogViewScreen(
+                  blog: blog,
+                ),
+              ));
+            },
+            child: Column(
               children: [
-                Text("${blog.likes} Likes", textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
-                const Expanded(child: SizedBox()),
-                Text(_timeHelper.dateFromTimestamp(blog.modifiedDateUnix), textAlign: TextAlign.center, style: TextStyle(fontSize: 12)),
+                SizedBox(
+                  height: maxThumbnailSize * 0.6,
+                  child: Image.network(
+                    blog.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(height: maxThumbnailSize * 0.02),
+                Text(
+                  blog.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: maxThumbnailSize * 0.07),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.thumb_up, size: maxThumbnailSize * 0.06),
+                    SizedBox(width: maxThumbnailSize * 0.02),
+                    Text(
+                      "${blog.likes} Likes · ${blog.publishedDate}",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: maxThumbnailSize * 0.06),
+                    ),
+                    // const Expanded(child: SizedBox()),
+                    // Text(
+                    //   blog.publishedDate,
+                    //   textAlign: TextAlign.center,
+                    //   style: const TextStyle(fontSize: maxThumbnailSize * 0.06),
+                    // ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

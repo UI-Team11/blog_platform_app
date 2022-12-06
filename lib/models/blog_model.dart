@@ -26,8 +26,8 @@ class BlogModel {
     required this.tags,
   }) {
     TimeHelper timeHelper = TimeHelper();
-    publishedDate = timeHelper.dateFromTimestamp(publishedDateUnix);
-    modifiedDate = timeHelper.dateFromTimestamp(modifiedDateUnix);
+    publishedDate = timeHelper.relativeTime(publishedDateUnix);
+    modifiedDate = timeHelper.relativeTime(modifiedDateUnix);
   }
 
   @override

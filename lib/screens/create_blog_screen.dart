@@ -20,6 +20,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
   String _title = "";
   String _content = "";
   //TODO: Add sources to blogs but not a priority
+  String _imageURL = "";
   String _sources = "";
   Set<String> _categories = {};
   CustomFormField customFormField = CustomFormField();
@@ -38,7 +39,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
       creatorID: FirebaseAuth.instance.currentUser?.uid ?? "Unknown",
       title: _title,
       content: _content,
-      imageUrl: "Test Image Url",
+      imageUrl: _imageURL,
       likes: 0,
       views: 0,
       publishedDateUnix: DateTime.now().millisecondsSinceEpoch,
@@ -116,7 +117,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                 question: " Image URL",
                 canBeNull: false,
                 formKey: formKey,
-                onSavedCallback: (String val)=>_title=val,
+                onSavedCallback: (String val)=>_imageURL=val,
                 borderRadius: 0,
               ),
               const SizedBox(height: 20, child: const DecoratedBox(

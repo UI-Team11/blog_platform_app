@@ -53,7 +53,7 @@ class _MainMenuViewState extends State<MainMenuView> {
             elevation: 0,
             title: Align(
               alignment: Alignment.centerRight,
-                child: SearchBar(),
+              child: SearchBar(),
             ),
             actions: [
               // Padding(
@@ -135,8 +135,10 @@ class _MainMenuViewState extends State<MainMenuView> {
                           width: MediaQuery.of(context).size.height / 6,
                           child: ElevatedButton(
                             onPressed: () => openLoginPopUp(),
-                            child: const Center(
-                              child: Text("Sign In"),
+                            child: Center(
+                              child: Text((currState is AuthSignedInState)
+                                  ? currState.user!.username[0].toUpperCase()
+                                  : "Sign In",),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: blueNavy[300],
@@ -153,7 +155,6 @@ class _MainMenuViewState extends State<MainMenuView> {
                       text: "HOME",
                       icon: Icons.home,
                       onTapFunc: () {
-
                         setState(() {
                           selectedIndex = 0;
                         });
@@ -165,7 +166,6 @@ class _MainMenuViewState extends State<MainMenuView> {
                       text: "CATEGORIES",
                       icon: Icons.category,
                       onTapFunc: () {
-
                         setState(() {
                           selectedIndex = 1;
                         });
@@ -177,8 +177,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       text: "CREATE BLOG",
                       icon: Icons.add_box,
                       onTapFunc: () {
-
-                        if(currState is! AuthSignedInState){
+                        if (currState is! AuthSignedInState) {
                           return openLoginPopUp();
                         }
 
@@ -193,8 +192,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       text: "YOUR BLOGS",
                       icon: Icons.newspaper,
                       onTapFunc: () {
-
-                        if(currState is! AuthSignedInState){
+                        if (currState is! AuthSignedInState) {
                           return openLoginPopUp();
                         }
 
@@ -209,8 +207,7 @@ class _MainMenuViewState extends State<MainMenuView> {
                       text: "SUBSCRIPTIONS",
                       icon: Icons.person,
                       onTapFunc: () {
-
-                        if(currState is! AuthSignedInState){
+                        if (currState is! AuthSignedInState) {
                           return openLoginPopUp();
                         }
 
@@ -221,19 +218,21 @@ class _MainMenuViewState extends State<MainMenuView> {
                       },
                     ),
                     const Expanded(flex: 1, child: SizedBox()),
-                    (currState is AuthSignedInState)? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: ListTile(
-                        title: const Center(
-                          child: Text("SIGN OUT",
-                              style: TextStyle(
-                                color: Colors.white,
-                              )),
-                        ),
-                        onTap: () => context.read<AuthCubit>().signOut(),
-                        hoverColor: const Color(0x11FFFFFF),
-                      ),
-                    ) : const SizedBox(),
+                    (currState is AuthSignedInState)
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: ListTile(
+                              title: const Center(
+                                child: Text("SIGN OUT",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    )),
+                              ),
+                              onTap: () => context.read<AuthCubit>().signOut(),
+                              hoverColor: const Color(0x11FFFFFF),
+                            ),
+                          )
+                        : const SizedBox(),
                     Expanded(flex: 1, child: SizedBox()),
                   ],
                 ),

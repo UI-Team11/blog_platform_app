@@ -55,41 +55,67 @@ class BlogViewScreen extends StatelessWidget {
                       children: [
                         const SizedBox(height: 20),
                         Center(
-                          child: Text(blog.title,
-                              style: Theme.of(context).textTheme.headlineLarge, selectionColor: Colors.black,),
+                          child: Text(
+                            blog.title,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                            selectionColor: Colors.black,
+                          ),
                         ),
-                        const SizedBox(height: 20,  child: const DecoratedBox(
-                            decoration: const BoxDecoration(
-                                color: Colors.blueGrey))),
+                        const SizedBox(
+                          height: 20,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(color: Colors.blueGrey),
+                          ),
+                        ),
                         //TODO: Replace hard coded url with the one of the blog
                         Image.network(
-                          "https://c0.wallpaperflare.com/preview/639/306/330/aerial-background-blog-cafe.jpg",
+                          blog.imageUrl,
                           fit: BoxFit.cover,
                           height: MediaQuery.of(context).size.height * 0.5,
                         ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            SizedBox(
-                              height: kToolbarHeight / 1.3,
-                              width: kToolbarHeight / 1.3,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                child: const Center(
-                                  child: Text(""),
+                            // SizedBox(
+                            //   height: kToolbarHeight / 1.3,
+                            //   width: kToolbarHeight / 1.3,
+                            //   child: ElevatedButton(
+                            //     onPressed: () {},
+                            //     child: const Center(
+                            //       child: Text(""),
+                            //     ),
+                            //     style: ElevatedButton.styleFrom(
+                            //       backgroundColor: Color(secondaryColorDark),
+                            //
+                            //       //fixedSize: const Size(200, 200),
+                            //       shape: const CircleBorder(),
+                            //     ),
+                            //   ),
+                            // ),
+                            // SizedBox(width: 10),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Published by ${publisher.username}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(secondaryColorDark),
-
-                                  //fixedSize: const Size(200, 200),
-                                  shape: const CircleBorder(),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(Icons.thumb_up, size: 10),
+                                    SizedBox(width: 3),
+                                    Text(
+                                      "${blog.likes} Likes · ${blog.publishedDate}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              publisher.username,
-                              style: Theme.of(context).textTheme.titleMedium,
+                              ],
                             ),
                             Expanded(child: SizedBox()),
                             (authCurrState is AuthSignedInState)
@@ -100,24 +126,16 @@ class BlogViewScreen extends StatelessWidget {
                                 : const SizedBox(),
                           ],
                         ),
-                        const SizedBox(height: 10),
+
+                        const SizedBox(height: 50),
                         Text(
-                          blog.publishedDate,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 20, child: const DecoratedBox(
-                            decoration: const BoxDecoration(
-                                color: Colors.blueGrey))),
-                        Expanded(
-                          child: Text(
-                            blog.content,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(height: 1.4),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1000,
-                          ),
+                          blog.content,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(height: 1.4),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1000,
                         ),
                       ],
                     ),
