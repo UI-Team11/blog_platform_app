@@ -30,6 +30,7 @@ class SubscriptionsCubit extends Cubit<SubscriptionsState> {
         .where('userID', isEqualTo: user!.uid)
         .get()
         .then((snapShot) {
+          print(snapShot);
       List<QueryDocumentSnapshot> docs = snapShot.docs;
       if (docs.isEmpty) {
         print("Docs Empty!!");

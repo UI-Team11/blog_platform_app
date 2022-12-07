@@ -3,7 +3,7 @@ import 'package:blog_platform_app/screens/blog_view_screen.dart';
 import 'package:flutter/material.dart';
 import '../custom_theme.dart';
 
-const double maxThumbnailSize = 200;
+const double maxThumbnailSize = 252;
 
 class BlogThumbnail extends StatelessWidget {
   final BlogModel blog;
@@ -21,7 +21,7 @@ class BlogThumbnail extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => BlogViewScreen(
-                  blogID: blog.blogID!,
+                  blog: blog,
                 ),
               ));
             },
@@ -39,18 +39,21 @@ class BlogThumbnail extends StatelessWidget {
                 SizedBox(height: maxThumbnailSize * 0.02),
                 Text(
                   blog.title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: maxThumbnailSize * 0.07),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontSize: maxThumbnailSize * 0.055),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
+                SizedBox(height: maxThumbnailSize * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.thumb_up, size: maxThumbnailSize * 0.06),
+                    Icon(Icons.thumb_up, size: maxThumbnailSize * 0.05),
                     SizedBox(width: maxThumbnailSize * 0.02),
                     Text(
                       "${blog.likes} Likes · ${blog.publishedDate}",
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: maxThumbnailSize * 0.06),
+                      style: const TextStyle(fontSize: maxThumbnailSize * 0.05),
                     ),
                     // const Expanded(child: SizedBox()),
                     // Text(

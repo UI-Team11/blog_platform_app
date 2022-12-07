@@ -19,6 +19,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
   final _formKey = GlobalKey<FormState>();
   String _title = "";
   String _content = "";
+
   //TODO: Add sources to blogs but not a priority
   String _imageURL = "";
   String _sources = "";
@@ -36,17 +37,17 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
     _formKey.currentState!.save();
 
     context.read<BlogsCubit>().saveBlog(BlogModel(
-      creatorID: FirebaseAuth.instance.currentUser?.uid ?? "Unknown",
-      title: _title,
-      content: _content,
-      imageUrl: _imageURL,
-      likes: 0,
-      views: 0,
-      publishedDateUnix: DateTime.now().millisecondsSinceEpoch,
-      modifiedDateUnix: DateTime.now().millisecondsSinceEpoch,
-      status: BlogStatus.active,
-      tags: _categories,
-    ));
+          creatorID: FirebaseAuth.instance.currentUser?.uid ?? "Unknown",
+          title: _title,
+          content: _content,
+          imageUrl: _imageURL,
+          likes: 0,
+          views: 0,
+          publishedDateUnix: DateTime.now().millisecondsSinceEpoch,
+          modifiedDateUnix: DateTime.now().millisecondsSinceEpoch,
+          status: BlogStatus.active,
+          tags: _categories,
+        ));
   }
 
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         return Form(
           key: _formKey,
           child: ListView(
-            padding:  const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             children: <Widget>[
               const SizedBox(height: 20),
               Title(
@@ -101,124 +102,143 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               //   },
               // ),
               const SizedBox(height: 20),
+              Text(" Title"),
+              const SizedBox(height: 5),
               customFormField.field(
                 verticalTextPadding: 20,
-                question: " Title",
+                question: "",
                 canBeNull: false,
                 formKey: formKey,
-                onSavedCallback: (String val)=>_title=val,
-                borderRadius: 0,
+                onSavedCallback: (String val) => _title = val,
+                borderRadius: 10,
               ),
-              const SizedBox(height: 20, child: const DecoratedBox(
-                  decoration: const BoxDecoration(
-                      color: Colors.blueGrey))),
+              const SizedBox(
+                height: 20,
+                // child: const DecoratedBox(
+                //     decoration: const BoxDecoration(color: Colors.blueGrey)),
+              ),
+              Text(" Image URL"),
+              const SizedBox(height: 5),
               customFormField.field(
                 verticalTextPadding: 20,
-                question: " Image URL",
+                question: "",
                 canBeNull: false,
                 formKey: formKey,
-                onSavedCallback: (String val)=>_imageURL=val,
-                borderRadius: 0,
+                onSavedCallback: (String val) => _imageURL = val,
+                borderRadius: 10,
               ),
-              const SizedBox(height: 20, child: const DecoratedBox(
-                  decoration: const BoxDecoration(
-                      color: Colors.blueGrey))),
-          MultiSelectFormField(
+              const SizedBox(
+                height: 20,
+                // child: const DecoratedBox(
+                //     decoration: const BoxDecoration(color: Colors.blueGrey)),
+              ),
+              Text(" Categories"),
+              const SizedBox(height: 5),
+              MultiSelectFormField(
 
-            autovalidate: AutovalidateMode.disabled,
-            chipBackGroundColor: Colors.blue,
-            chipLabelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
-            checkBoxActiveColor: Colors.blue,
-            checkBoxCheckColor: Colors.white,
-            dialogShapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12.0))),
-            title: Text(
-              "Categories",
-              style: TextStyle(fontSize: 16),
-            ),
-            validator: (value) {
-              if (value == null || value.length == 0) {
-                return 'Please select one or more options';
-              }
-              return null;
-            },
-            dataSource: [
-              {
-                "display": "Medicine",
-                "value": "Medicine",
-              },
-              {
-                "display": "Science",
-                "value": "Science",
-              },
-              {
-                "display": "Technology",
-                "value": "Technology",
-              },
-              {
-                "display": "Business",
-                "value": "Business",
-              },
-              {
-                "display": "Space",
-                "value": "Space",
-              },
-              {
-                "display": "Food",
-                "value": "Food",
-              },
-              {
-                "display": "Travel",
-                "value": "Travel",
-              },
-            {
-              "display": "Sports",
-              "value": "Sports",
-            },
-              {
-                "display": "Cars",
-                "value": "Cars",
-              },
-              {
-                "display": "Politics",
-                "value": "Politics",
-              },
-              {
-                "display": "Finance",
-                "value": "Finance",
-              },
-              {
-                "display": "Conspiracy Theory",
-                "value": "Conspiracy Theory",
-              },
-            ],
-            textField: 'display',
-            valueField: 'value',
-            okButtonLabel: 'OK',
-            cancelButtonLabel: 'CANCEL',
-            hintWidget: Text('Please choose one or more'),
-            // initialValue: _myCategory,
-            onSaved: (value) {
-              if (value == null) return;
-              setState(() {
-                _categories = {};
-                for(var item in value){
-                  _categories.add(item as String);
-                }
-              });
-            },
-          ),
-              const SizedBox(height: 20, child: const DecoratedBox(
-                  decoration: const BoxDecoration(
-                      color: Colors.blueGrey))),
+                autovalidate: AutovalidateMode.disabled,
+                chipBackGroundColor: Colors.blue,
+                chipLabelStyle:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                checkBoxActiveColor: Colors.blue,
+                checkBoxCheckColor: Colors.white,
+                border: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 0),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                dialogShapeBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                title: Text(
+                  "",
+                  style: TextStyle(fontSize: 16),
+                ),
+                validator: (value) {
+                  if (value == null || value.length == 0) {
+                    return 'Please select one or more options';
+                  }
+                  return null;
+                },
+                dataSource: [
+                  {
+                    "display": "Medicine",
+                    "value": "Medicine",
+                  },
+                  {
+                    "display": "Science",
+                    "value": "Science",
+                  },
+                  {
+                    "display": "Technology",
+                    "value": "Technology",
+                  },
+                  {
+                    "display": "Business",
+                    "value": "Business",
+                  },
+                  {
+                    "display": "Space",
+                    "value": "Space",
+                  },
+                  {
+                    "display": "Food",
+                    "value": "Food",
+                  },
+                  {
+                    "display": "Travel",
+                    "value": "Travel",
+                  },
+                  {
+                    "display": "Sports",
+                    "value": "Sports",
+                  },
+                  {
+                    "display": "Cars",
+                    "value": "Cars",
+                  },
+                  {
+                    "display": "Politics",
+                    "value": "Politics",
+                  },
+                  {
+                    "display": "Finance",
+                    "value": "Finance",
+                  },
+                  {
+                    "display": "Conspiracy Theory",
+                    "value": "Conspiracy Theory",
+                  },
+                ],
+                textField: 'display',
+                valueField: 'value',
+                okButtonLabel: 'OK',
+                cancelButtonLabel: 'CANCEL',
+                hintWidget: Text('Please choose one or more'),
+                // initialValue: _myCategory,
+                onSaved: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    _categories = {};
+                    for (var item in value) {
+                      _categories.add(item as String);
+                    }
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 20,
+                // child: const DecoratedBox(
+                //     decoration: const BoxDecoration(color: Colors.blueGrey))
+              ),
+              Text("Content Body"),
+              const SizedBox(height: 5),
               customFormField.field(
-                question: " Text for Blog",
+                question: "",
                 verticalTextPadding: 20,
                 canBeNull: false,
                 formKey: formKey,
-                onSavedCallback: (String val)=>_content=val,
-                borderRadius: 0,
+                onSavedCallback: (String val) => _content = val,
+                borderRadius: 10,
               ),
               // TextFormField(
               //   onSaved: (value) => _content = value ?? "",

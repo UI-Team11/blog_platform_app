@@ -48,7 +48,7 @@ class _MainMenuViewState extends State<MainMenuView> {
     return Builder(
       builder: (context) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(backgroundColor),
           appBar: AppBar(
             elevation: 0,
             title: Align(
@@ -251,19 +251,13 @@ class _MainMenuViewState extends State<MainMenuView> {
                   CategoryScreen(),
                   (currState is AuthSignedInState)
                       ? CreateBlogScreen()
-                      : const Center(
-                          child: Text("Please sign in to access this page"),
-                        ),
+                      : HomeScreen(),
                   (currState is AuthSignedInState)
                       ? PublishedBlogScreen()
-                      : const Center(
-                          child: Text("Please sign in to access this page"),
-                        ),
+                      : HomeScreen(),
                   (currState is AuthSignedInState)
                       ? SubscriptionsScreen()
-                      : const Center(
-                          child: Text("Please sign in to access this page"),
-                        ),
+                      : HomeScreen(),
                 ],
               ),
             );
