@@ -138,11 +138,12 @@ class _MainMenuViewState extends State<MainMenuView> {
                             child: Center(
                               child: Text((currState is AuthSignedInState)
                                   ? currState.user!.username[0].toUpperCase()
-                                  : "Sign In",),
+                                  : "Sign In",
+                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: blueNavy[300],
-
                               //fixedSize: const Size(200, 200),
                               shape: const CircleBorder(),
                             ),
