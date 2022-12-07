@@ -54,7 +54,7 @@ class BlogViewScreen extends StatelessWidget {
                   child: ListView(
                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                     padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.1,
+                      horizontal: MediaQuery.of(context).size.width * 0.2,
                       vertical: 20,
                     ),
                     children: [
