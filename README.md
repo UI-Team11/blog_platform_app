@@ -10,9 +10,9 @@ This software allows users to write blogs and read the ones other users publishe
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/home_page.png" height="532" width="1420" />
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/menu_drawer.png" height="532" width="1420" />
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/blog_view.png" height="532" width="1420" />
-<img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/search_page.png" height="532" width="1420" />
 Note: Searching blogs with the word review in their title
-\n
+
+<img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/search_page.png" height="532" width="1420" />
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/categories_page.png" height="532" width="1420" />
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/create_blog_page.png" height="532" width="1420" />
 <img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/your_blogs_page.png" height="532" width="1420" />
