@@ -6,4 +6,4 @@ This software allows users to write blogs and read the ones other users publishe
 
 ## Screenshots
 
-<img src="https://github.com/jdelarosaquiros/market_news_app/blob/new-main/images/preview_screenshot.png" height="570" width="280" />
+<img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/authentication_popup.png" height="280" width="570" />
