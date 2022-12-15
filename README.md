@@ -6,4 +6,4 @@ This software allows users to write blogs and read the ones other users publishe
 
 ## Screenshots
 
-<img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/authentication_popup.png" height="432" width="1420" />
+<img src="https://github.com/UI-Team11/blog_platform_app/blob/main/screenshots/authentication_popup.png" height="532" width="1420" />
